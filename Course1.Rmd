@@ -58,3 +58,31 @@ card_width = "5 inches"
 card_width = 5
 card_length * card_width
 ```
+```{r}
+
+height_vec = c(180,169,173)
+name_vec = c("Brian", "Toby", "Sherry")
+# 兩個向量進行數學運算
+x = c(1,2,3,7) 
+y= c(2,3,5,1)
+
+x+y 
+x*y
+x-y 
+x/y
+
+x = c(1,2,3,7) 
+sum(x)
+
+height_vec = c(180,169,173)
+height_vec
+
+names(height_vec) = c("Brian", "Toby", "Sherry")
+height_vec
+
+name_vec = c("Brian", "Toby", "Sherry")
+names(height_vec) = name_vec
+
+
+```
+
