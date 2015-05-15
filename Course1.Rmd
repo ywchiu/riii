@@ -93,3 +93,68 @@ name_vec = c("Brian", "Toby", "Sherry")
 bmi_vec = weight_vec / (height_vec/100) ^2
 names(bmi_vec[bmi_vec >=18.5 & bmi_vec < 24])
 ```
+
+```{r}
+matrix(1:9, byrow=TRUE, nrow=3)
+matrix(1:9, nrow=3)
+kevin = c(85,73)
+marry = c(72,64)
+jerry = c(59,66)
+
+mat = matrix(c(kevin, marry, jerry), nrow=3, byrow= TRUE)
+colnames(mat) = c('first', 'second')
+rownames(mat) = c('kevin', 'marry', 'jerry')
+
+mat2 = matrix(c(kevin, marry, jerry), nrow=3, byrow=TRUE, 
+dimnames=list(c('kevin', 'marry', 'jerry'),c('first', 'second')))
+
+#取維度
+dim(mat2)
+
+#取列數
+nrow(mat2)
+
+#取行數
+ncol(mat2)
+
+#取第一列
+mat2[1,] 
+
+#取第一行
+mat2[,1]
+
+#取第二、三列
+mat2[2:3,]
+
+#取第二列第一行的元素
+mat2[2,1]
+
+#新增學生資料
+mat3 = rbind(mat2, c(78,63))
+rownames(mat3)[nrow(mat3)] = 'sam'
+mat3
+
+#新增考試分數
+mat4 = cbind(mat2,c(82,77,70))
+colnames(mat4)[ncol(mat4)] = 'third'
+mat4
+
+rowSums(mat2)
+colSums(mat2)
+
+#矩陣宣告
+m1 = matrix(1:4, byrow=TRUE, nrow=2)
+m2 = matrix(5:8, byrow=TRUE, nrow=2)
+
+#矩陣運算
+m1 + m2
+m1 - m2
+m1 * m2
+m1 / m2
+
+#m1 X m2 
+m1 %*% m2
+
+
+```
+
