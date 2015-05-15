@@ -1,0 +1,60 @@
+---
+title: "Course1"
+author: "David Chiu"
+date: "Friday, May 15, 2015"
+output: html_document
+---
+
+```{r}
+#這是註解
+3 + 3
+#demo(graphics)
+```
+
+```{r, echo=FALSE}
+# 數字相加
+3 + 8
+# 數字相減
+3 - 8
+# 數字相乘
+5 * 5
+# 數字相除
+11 / 2
+# 指數
+2^10
+# 取餘數
+11%%2
+```
+
+```{r}
+# 指定變數
+a = 3
+a
+
+# 變數相加
+b = 5
+c = a + b
+c
+```
+
+```{r}
+# 數值型態
+numer = 17.8
+# 字串型態
+char = "hello world"
+# 布林邏輯
+logic = TRUE
+
+# 使用class 檢查資料型態
+class(logic)
+
+
+card_length = 3
+card_width = "5 inches"
+#card_length * card_width
+
+
+#重新將card_width 指到5
+card_width = 5
+card_length * card_width
+```
