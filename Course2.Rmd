@@ -27,6 +27,20 @@ print("current_word");
 print(current_word);
 print("sum");
 print(sum);
+
+
+a = c(1,3,2,2,3,1,2,3)
+output = list()
+for(i in 1:length(a)){
+  v = a[i];
+  if (is.null(output[v][[1]]) ==TRUE){   
+    output[a[i]] = 1;
+  }
+  else{
+    output[a[i]] = output[a[i]][[1]] + 1;
+  }
+}
+print(output);
 ```
 
 ```{r}
@@ -69,4 +83,85 @@ write.table(test.data, file = "test.txt" , sep = " ")
 ?write.table
 write.table(test.data, sep = " ",file = "test.txt" )
 write.csv(test.data, file = "test.csv")
+```
+
+```{r}
+#Traditional Way
+x = 5;
+if(x > 3){ 
+    print("x > 3");
+}else{
+    print("x <= 3");
+}
+tw2330 = read.table("2330.csv", sep=',', head=TRUE)
+for (i in 1:nrow(tw2330)){
+  if(tw2330[i,]$Close - tw2330[i,]$Open > 0){ 
+    print("T");
+}else{
+    print("F");
+}
+}
+
+#R
+ifelse(tw2330$Close - tw2330$Open > 0 ,"T","F")
+
+#Traditional Way
+x = 5;
+if(x > 3){ 
+    print("x > 3");
+} else if(x ==3){
+    print("x == 3");
+}else{
+    print("x < 3");
+}
+
+#Traditional Way
+for(i in 1:10){
+     print (i);
+}
+
+#R
+ 1:10
+
+#Traditional Way
+sum = 0
+for(i in 1:100){
+     sum = sum + i;
+}
+sum
+#R
+sum(1:100)
+
+
+x <- c("sunny","rainy", "cloudy", "rainy", "cloudy")
+
+for(i in 1:length(x)) {
+ print(x[i])
+}
+
+for(i in seq_along(x)) {
+ print(x[i])
+}
+
+for(letter in x) {
+ print(letter)
+}
+
+
+mat = matrix(1:9, byrow=TRUE, nrow=3)
+for(i in seq_len(nrow(mat))) {
+ for(j in seq_len(ncol(mat))) {
+ print(mat[i, j])
+ } 
+}
+
+sum = 0;
+cnt = 0;
+while(cnt <= 100){
+    sum = sum + cnt;
+    cnt = cnt + 1;
+}
+sum
+
+print(sprintf("%s %d x %d = %d","equation", 3,3,3*3))
 ```
