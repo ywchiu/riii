@@ -207,3 +207,34 @@ match_func= function(filename="match.txt") {
 }
 match_func()
 ```
+
+```{r}
+x = list(c(1,2,3), c(5,6,7,8))
+lapply(x, sum)
+
+
+m1 = matrix(1:4, byrow=TRUE, nrow=2)
+m2 = matrix(5:8, byrow=TRUE, nrow=2)
+
+li = list(m1, m2)
+lapply(li, mean)
+
+lapply(li,function(e) e[1,])
+
+x = list(c(1,2,3,4), c(5,6,7,8))
+lapply(x, sum)
+class(lapply(x, sum))
+unlist(lapply(x, sum))
+
+sapply(x, sum)
+
+m1 = matrix(1:4, byrow=TRUE, nrow=2)
+m2 = matrix(5:8, byrow=TRUE, nrow=2)
+
+li = list(m1, m2)
+sapply(li, mean)
+sapply(li,function(e) e[1,])
+
+data(iris)
+tapply(iris$Sepal.Length, iris$Species, mean)
+```
