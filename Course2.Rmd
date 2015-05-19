@@ -177,3 +177,25 @@ for (i in 1:9){
 
 matrix(1:9,nrow=9) %*% matrix(1:9,nrow=1)
 ```
+
+```{r}
+f = function(a, b) {
+   a * 2
+}
+f(3)
+
+f = function(a, b = 5) {
+     print(a+ b)
+}
+f(3)
+f(3,4)
+
+
+mat1 = matrix(-1, nrow=5, ncol=5)
+rownames(mat1) = c("A","B","C","D","E")
+colnames(mat1) = c("A","B","C","D","E")
+
+mat1["A","C"]
+mat1["A","C"] = 3
+mat1
+```
