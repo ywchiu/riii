@@ -189,13 +189,21 @@ f = function(a, b = 5) {
 }
 f(3)
 f(3,4)
+```
 
+Match Exercise
+```{r}
+match_func= function(filename="match.txt") {
 
-mat1 = matrix(-1, nrow=5, ncol=5)
-rownames(mat1) = c("A","B","C","D","E")
-colnames(mat1) = c("A","B","C","D","E")
-
-mat1["A","C"]
-mat1["A","C"] = 3
-mat1
+  match = read.table(filename, sep='|')
+  mat = matrix(-1, nrow=5, ncol=5)
+  rownames(mat) = c("A","B","C","D","E")
+  colnames(mat) = c("A","B","C","D","E")
+  
+  for (i in 1:nrow(match)){
+  mat[match[i,]$V1,match[i,]$V2] = match[i,]$V3
+  }
+  mat
+}
+match_func()
 ```
