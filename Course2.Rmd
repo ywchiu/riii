@@ -1,0 +1,72 @@
+---
+title: "Course2"
+author: "David Chiu"
+date: "Tuesday, May 19, 2015"
+output: html_document
+---
+
+
+```{r}
+a = c(1,3,2,2,3,1,2,3)
+a = sort(a)
+sum = 0
+current_word = ""
+for(i in 1:length(a)){
+  if (a[i] != current_word){   
+    print("current_word");
+    print(current_word);
+    print("sum");
+    print(sum);
+    current_word = a[i];
+    sum = 1;
+  }else{
+    sum = sum + 1;
+  }
+}
+print("current_word");
+print(current_word);
+print("sum");
+print(sum);
+```
+
+```{r}
+item = list(thing="hat", size="8.25") 
+item
+
+test = list(name="Toby", score = c(87,57,72)) 
+test$score
+test$score[2]
+
+#取得內含data frame 的值
+flower= list(title="iris dataset", data= iris)
+str(flower)
+flower$data[1,"Sepal.Width"]
+```
+
+
+```{r}
+
+match = read.table("C:/Users/david/Desktop/match.txt")
+match = read.table("~/Desktop/match.txt")
+View(match)
+match = read.table("~/Desktop/match.txt", sep='|')
+View(match)
+getwd()
+setwd("C:/Users/david/Desktop")
+getwd()
+match = read.table("match.txt", sep='|')
+setwd("~/Desktop")
+tw2330 = read.csv("2330.csv")
+tw2330 = read.table("2330.csv", sep=',')
+
+tw2330 = read.table("2330.csv", sep=',', head=TRUE)
+
+class(tw2330)
+head(2330)
+head(tw2330)
+test.data = head(tw2330)
+write.table(test.data, file = "test.txt" , sep = " ")
+?write.table
+write.table(test.data, sep = " ",file = "test.txt" )
+write.csv(test.data, file = "test.csv")
+```
