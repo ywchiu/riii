@@ -238,3 +238,56 @@ sapply(li,function(e) e[1,])
 data(iris)
 tapply(iris$Sepal.Length, iris$Species, mean)
 ```
+
+
+```{r}
+load("~/riii/Statistics/cdc.Rdata")
+names(cdc)
+hist(cdc$weight)
+hist(cdc$weight, breaks=50)
+stem(cdc$weight)
+#使用mean 函式
+mean(cdc$weight)
+
+#使用median 函式
+median(cdc$weight)
+
+#使用table 跟 which.max
+names(which.max(table(c(1,4,4,3))))
+
+#使用table 產生類別資料的統計資訊
+table(cdc$smoke100)
+
+#使用table 產生類別資料的相對比例
+table(cdc$smoke100) / length(cdc$smoke100) 
+
+
+barplot(table(cdc$smoke100))
+
+#使用table 產生統計資料
+gender_smokers = table(cdc$gender, cdc$smoke100)
+
+#使用mosaicplot 繪製多維統計
+mosaicplot(gender_smokers)
+
+
+a = c(150, 155, 160, 162, 168, 171, 173, 175, 178, 182, 185)
+stem(a)
+quantile(a,0.75)
+quantile(a,0.25)
+IQR(a)
+boxplot(cdc$weight)
+boxplot(cdc$height ~ cdc$gender)
+bmi = (cdc$weight/cdc$height^2) * 703
+boxplot(bmi ~ cdc$genhlth)
+plot(cdc$weight, cdc$wtdesire)
+#標準差
+sd(cdc$weight)
+sqrt(var(cdc$weight))
+
+#變異數
+sd(cdc$weight) ^ 2
+var(cdc$weight)
+
+
+```
