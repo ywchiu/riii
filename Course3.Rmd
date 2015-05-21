@@ -80,6 +80,52 @@ sim_table = table(sim_streak)
 par(mfrow = c(1, 2))
 barplot(kobe_table)
 barplot(sim_table)
+#barplot(cbind(kobe_table[1:4], sim_table[1:4]), plot = TRUE, beside = TRUE)
 
 ```
 
+```{r}
+load("~/Desktop/ames.Rdata")
+class(ames)
+head(ames)
+tail(ames)
+
+area = ames$Gr.Liv.Area
+hist(area)
+shapiro.test(area)
+
+for (i in 1:5000) {
+    samp = sample(area, 10)
+    sample_means10[i] = mean(samp)
+    samp = sample(area, 50)
+    sample_means50[i] = mean(samp)
+    samp = sample(area, 100)
+    sample_means100[i] = mean(samp)
+}
+
+par(mfrow = c(3, 1))
+
+xlimits = range(sample_means10)
+
+hist(sample_means10, breaks = 20, xlim = xlimits)
+hist(sample_means50, breaks = 20, xlim = xlimits)
+hist(sample_means100, breaks = 20, xlim = xlimits)
+
+
+population = ames$Gr.Liv.Area
+samp = sample(population, 50)
+sample_mean = mean(samp)
+hist(samp)
+
+
+#標準誤差
+sde = sd(samp)/sqrt(50)
+
+#隨機區間: 95%的信心 ，平均數會落在平均數加減1.96標準誤差的區間中
+lower = sample_mean - 1.96 * sde
+upper = sample_mean + 1.96 * sde
+
+qnorm(0.975)
+pnorm(1.96)
+
+```
