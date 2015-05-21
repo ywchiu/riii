@@ -93,6 +93,9 @@ tail(ames)
 area = ames$Gr.Liv.Area
 hist(area)
 shapiro.test(area)
+sample_means10 = rep(NA, 5000)
+sample_means50 = rep(NA, 5000)
+sample_means100 = rep(NA, 5000)
 
 for (i in 1:5000) {
     samp = sample(area, 10)
