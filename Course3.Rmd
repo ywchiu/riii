@@ -1,0 +1,85 @@
+---
+title: "Course3"
+author: "David Chiu"
+date: "Thursday, May 21, 2015"
+output: html_document
+---
+
+```{r}
+rnorm(10)
+hist(rnorm(10))
+
+hist(rnorm(100))
+hist(rnorm(1000))
+
+curve(dnorm,-3,3)
+abline(v = 1.5, col="red")
+dnorm(0)
+dnorm(0,mean=3,sd=5)
+pnorm(1.5)
+
+
+set.seed(50)
+y = runif(1000,0,5)
+hist(y)
+
+hist(rpois(5000,3))
+load("cdc.Rdata")
+shapiro.test(sample(cdc$weight,5000))
+
+
+
+```
+```{r}
+sample(1:10)
+set.seed(50)
+sample(1:42, size = 6)
+sample(c(0,1), 10, replace = TRUE)
+sample(c("tail","head"), 10, replace = TRUE)
+sample.int(20, 12)
+sample.int(42, 6)
+
+
+coins = c("heads", "tails")
+fair_coin = sample(coins, size = 1000, replace = TRUE)
+table(fair_coin)
+
+outcomes = c("heads", "tails")
+unfair_coin = sample(outcomes, size = 100, replace = TRUE, prob = c(0.3,0.7))
+table(unfair_coin)
+
+
+```
+
+```{r}
+
+load("~/Desktop/kobe.RData")
+get_streak = function(x){
+  y = rep(0,length(x))
+  y[x == "H"] = 1
+  y = c(0, y, 0)
+  wz = which(y == 0)
+  streak = diff(wz) - 1
+  return(streak)
+}
+
+outcomes = c("H", "M")
+sim_basket = sample(outcomes, size = 133, replace = TRUE, prob = c(0.45, 0.55))
+
+table(sim_basket)
+
+kobe_streak = get_streak(kobe$basket)
+sim_streak = get_streak(sim_basket)
+
+summary(kobe_streak)
+summary(sim_streak)
+
+kobe_table = table(kobe_streak)
+sim_table = table(sim_streak)
+
+par(mfrow = c(1, 2))
+barplot(kobe_table)
+barplot(sim_table)
+
+```
+
