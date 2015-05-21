@@ -132,3 +132,11 @@ qnorm(0.975)
 pnorm(1.96)
 
 ```
+
+```{r}
+data(mtcars)
+cov(mtcars[,1:3])
+cor(mtcars[,1:3])
+qplot(x=Var1, y=Var2, data=melt(cor(mtcars[1:3])), fill=value, geom="tile")
+qplot(x=Var1, y=Var2, data=melt(cor(mtcars[1:3])), fill=value, geom="tile") + scale_fill_gradient(low = "pink", high = "green")
+```
