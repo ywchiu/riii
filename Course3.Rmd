@@ -140,3 +140,12 @@ cor(mtcars[,1:3])
 qplot(x=Var1, y=Var2, data=melt(cor(mtcars[1:3])), fill=value, geom="tile")
 qplot(x=Var1, y=Var2, data=melt(cor(mtcars[1:3])), fill=value, geom="tile") + scale_fill_gradient(low = "pink", high = "green")
 ```
+
+```{r}
+load("mlb11.Rdata")
+plot(mlb11$runs ~ mlb11$at_bats)
+m1 = lm(runs ~ at_bats, data = mlb11)
+abline(m1)
+predict(m1, data.frame(at_bats = 5700))
+
+```
