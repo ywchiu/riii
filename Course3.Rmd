@@ -149,3 +149,44 @@ abline(m1)
 predict(m1, data.frame(at_bats = 5700))
 
 ```
+
+```{r}
+binom.test(x=92, n=315, p=1/6)
+
+boxplot(mtcars$mpg, mtcars$mpg[mtcars$am==0], ylab = "mpg", names=c("overall","automobile"))
+abline(h=mean(mtcars$mpg),lwd=2, col="red")
+abline(h=mean(mtcars$mpg[mtcars$am==0]),lwd=2, col="blue")
+
+mpg.mu = mean(mtcars$mpg)
+mpg_am = mtcars$mpg[mtcars$am == 0]
+t.test(mpg_am,mu = mpg.mu)
+
+boxplot(mtcars$mpg~mtcars$am,ylab='mpg',names=c('automatic','manual'))
+abline(h=mean(mtcars$mpg[mtcars$am==0]),lwd=2, col="blue")
+abline(h=mean(mtcars$mpg[mtcars$am==1]),lwd=2, col="red")
+
+t.test(mtcars$mpg~mtcars$am)
+
+#產生類別資料統計
+ftable = table(mtcars$am, mtcars$gear)
+#繪製類別資料
+mosaicplot(ftable, main="Number of Forward Gears Within Automatic and Manual Cars", color = TRUE)
+
+chisq.test(ftable)
+
+boxplot(mtcars$mpg~factor(mtcars$gear),xlab='gear',ylab='mpg')
+ oneway.test(mtcars$mpg~factor(mtcars$gear))
+
+ mtcars.aov <- aov(mtcars$mpg ~ as.factor(mtcars$gear))
+ summary(mtcars.aov)
+
+par(mfrow=c(1,2))
+boxplot(mtcars$mpg~mtcars$gear,subset=(mtcars$am==0),xlab='gear', ylab = "mpg",main= 'manual’ )
+boxplot(mtcars$mpg~mtcars$gear,subset=(mtcars$am==1),xlab='gear', ylab = "mpg", main='automatic’)
+
+boxplot(mtcars$mpg~factor(mtcars$gear)* factor(mtcars$am),xlab='gear * transmission', ylab = "mpg",main='Boxplot of mpg by gear * transmission')
+
+mpg_anova2 = aov(mtcars$mpg~factor(mtcars$gear)*factor(mtcars$am))
+summary(mpg_anova2) 
+
+```
