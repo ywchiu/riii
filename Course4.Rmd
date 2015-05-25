@@ -1,0 +1,47 @@
+---
+title: "Course4"
+author: "David Chiu"
+date: "Monday, May 25, 2015"
+output: html_document
+---
+
+
+```{r}
+X = c(17, 21, 35, 39, 50, 65)
+Y = c(132, 150, 160, 162, 149, 170)
+plot(X,Y)
+plot(Y~X)
+plot(X,Y, main="regression example", xlab = "age", ylab = "salary", xlim=c(0, 80))
+X_avg = mean(X)
+Y_avg = mean(Y)
+
+
+(sum(X*Y) - length(X)*X_avg * Y_avg) /  (sum(X^2) - length(X) * X_avg^2)
+
+Y_avg - 0.5529606 * X_avg
+
+X = Quartet$x
+Y = Quartet$y1
+X_avg = mean(X)
+Y_avg = mean(Y)
+(sum(X*Y) - length(X)*X_avg * Y_avg) /  (sum(X^2) - length(X) * X_avg^2)
+Y_avg - 0.5 * X_avg
+data(Quartet)
+plot(Quartet$y1~Quartet$x)
+fit = lm(y1~x, Quartet)
+fit
+abline(h = 6, col="red")
+abline(v = 8, col="red")
+abline(fit, col="blue")
+
+
+X = c(17, 21, 35, 39, 50, 65)
+Y = c(132, 150, 160, 162, 149, 170)
+
+
+
+fit = lm(Y~X)
+plot(Y~X)
+abline(fit, col="red")
+```
+
