@@ -45,3 +45,75 @@ plot(Y~X)
 abline(fit, col="red")
 ```
 
+```{r}
+data(Quartet)
+X = Quartet$x
+Y = Quartet$y1
+X_avg = mean(X)
+Y_avg = mean(Y)
+b1 = (sum(X*Y) - length(X)*X_avg * Y_avg) /  (sum(X^2) - length(X) * X_avg^2)
+b0 = Y_avg - 0.5 * X_avg
+plot(Y~X)
+
+abline(a = b0, b=b1, col="red")
+lines(X, b0 + b1*X, col ="red")
+lines(1:20, b0 + b1*1:20, col ="red")
+
+X= c(1,2,3)
+Y = c(4,5,6)
+plot(X,Y, xlim = c(1,5), ylim=c(1,10))
+lines(c(1,2,3),c(2,3,8), col='red')
+
+
+plot(Quartet$x, Quartet$y2)
+fit = lm(Quartet$y2 ~ Quartet$x)
+fit = lm(Quartet$y2 ~ poly(Quartet$x,2))
+i = Quartet$x
+j = fit$fit
+lines(sort(i),j[order(i)],col="blue")
+
+
+plot(Quartet$x, Quartet$y3)
+fit = lm(Quartet$y3 ~ Quartet$x)
+abline(fit, col="red")
+
+fit = lm(Quartet$y3[Quartet$x != 13] ~ Quartet$x[Quartet$x != 13])
+abline(fit, col="blue")
+
+library(MASS)
+plot(Quartet$x, Quartet$y3)
+lmfit = rlm(Quartet$y3~Quartet$x)
+abline(lmfit, col="red")
+```
+
+```{r}
+house_prices <- read.csv(file="~/Desktop/house-prices.csv")
+names(house_prices)
+str(house_prices)
+attach(house_prices)
+detach(house_prices)
+plot(Price ~ SqFt)
+
+plot(SqFt, Price, main="Scatter plot", xlab="Square feet", ylab="Price")
+abline(lm.1,col="red",lwd=3)
+
+X = c(17, 21, 35, 39, 50, 65)
+Y = c(132, 150, 160, 162, 149, 170)
+fit = lm(Y~X)
+plot(X,Y, xlim=c(0,80), ylim =c(0,200))
+```
+
+
+```{r}
+plot(Quartet$x, Quartet$y3)
+lmfit = lm(Quartet$y3~Quartet$x)
+abline(lmfit, col="red")
+predict(lmfit, data.frame(x=8))
+predict(lmfit, data.frame(x=c(8,9)))
+predicted= predict(lmfit, newdata=Quartet[c("x")])
+actual = Quartet$y3
+rmse = (mean((predicted - actual)^2))^0.5
+mu = mean(actual)
+rse = mean((predicted - actual)^2) / mean((mu - actual)^2) 
+rsquare = 1 - rse
+```
