@@ -197,3 +197,15 @@ table(testset$churn, predictions)
 
 
 ```
+
+```{r}
+plot(iris$Petal.Length, iris$Petal.Width, col=iris$Species)
+library(rpart)
+fit = rpart(Species ~., iris)
+prediction = predict(fit, iris[,1:4], type="class")
+table(prediction, iris[,5])
+
+install.packages("e1071")
+library(e1071)
+fit = svm(Species ~., iris)
+```
