@@ -166,3 +166,34 @@ b<-cor(validation_data$Price,validation_data$predict.price)
 a*a
 b*b
 ```
+
+
+```{r}
+install.packages("C50")
+library(C50)
+data(churn)
+str(churnTrain)
+churnTrain = churnTrain[,! names(churnTrain) %in% c("state", "area_code", "account_length") ]
+set.seed(2)
+ind <- sample(2, nrow(churnTrain), replace = TRUE, prob=c(0.7, 0.3))
+trainset = churnTrain[ind == 1,]
+testset = churnTrain[ind == 2,]
+churn.rp <- rpart(churn ~ ., data=trainset)
+plot(churn.rp, margin= 0.1)
+text(churn.rp, all=TRUE, use.n = TRUE)
+
+library(party)
+ctree.model <- ctree(churn ~ . , data = trainset)
+plot(ctree.model)
+
+min(churn.rp$cptable[,"xerror"])
+which.min(churn.rp$cptable[,"xerror"])
+churn.cp = churn.rp$cptable[7,"CP"]
+prune.tree = prune(churn.rp, cp= churn.cp)
+plot(prune.tree, margin= 0.1)
+text(prune.tree, all=TRUE , use.n=TRUE)
+predictions <- predict(churn.rp, testset, type="class")
+table(testset$churn, predictions)
+
+
+```
