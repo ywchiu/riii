@@ -116,4 +116,53 @@ rmse = (mean((predicted - actual)^2))^0.5
 mu = mean(actual)
 rse = mean((predicted - actual)^2) / mean((mu - actual)^2) 
 rsquare = 1 - rse
+
+library(MASS)
+plot(Quartet$x, Quartet$y3)
+rlmfit = rlm(Quartet$y3~Quartet$x)
+abline(rlmfit, col="red")
+predicted = predict(rlmfit, newdata=Quartet[c("x")])
+actual = Quartet$y3
+rmse = (mean((predicted - actual)^2))^0.5
+mu = mean(actual)
+rse =mean((predicted - actual)^2) / mean((mu - actual)^2) 
+rsquare = 1 - rse
+
+```
+
+```{r}
+house_prices <- read.csv(file="~/Desktop/house-prices.csv")
+house_prices$brick_d<-ifelse(house_prices$Brick=="Yes",1,0)
+house_prices$east<-ifelse(house_prices$Neighborhood=="East",1,0)
+house_prices$north<-ifelse(house_prices$Neighborhood=="North",1,0)
+
+set.seed(110)
+sub <- sample(nrow(house_prices), floor(nrow(house_prices) * 0.6))
+training_data <- house_prices[sub,]
+validation_data <- house_prices[-sub,]
+lm.fit1 <- lm(Price ~ SqFt+Bathrooms+Bedrooms+Offers+
+                north+east+brick_d, data=training_data)
+summary(lm.fit1)
+ 2 * pt(-abs(2.555), 68)
+library(MASS)
+lm.fit1.step <- stepAIC(lm.fit1)
+summary(lm.fit1.step)
+
+library(car)
+vif(lm.fit1)
+
+training_data$predict.price <- predict(lm.fit1)
+training_data$error <- residuals(lm.fit1)
+
+
+validation_data$predict.price <- predict(lm.fit1,newdata=validation_data)
+validation_data$error <- validation_data$predict.price - validation_data$Price
+
+hist(training_data$error)
+hist(validation_data$error)
+
+a<-cor(training_data$Price,training_data$predict.price)
+b<-cor(validation_data$Price,validation_data$predict.price)
+a*a
+b*b
 ```
