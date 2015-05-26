@@ -1,0 +1,100 @@
+---
+title: "Course5"
+author: "David Chiu"
+date: "Tuesday, May 26, 2015"
+output: html_document
+---
+
+
+
+```{r}
+x = c(0, 0, 1, 1, 1, 1)
+y = c(1, 0, 1, 1, 0, 1)
+dist(rbind(x,y), method =  "euclidean")
+sqrt(sum((x - y)^2))
+dist(rbind(x,y), method ="minkowski", p=2)
+
+dist(rbind(x,y), method ="minkowski", p=1)
+dist(rbind(x,y), method =  "manhattan")
+sum(abs(x - y))
+
+
+
+
+```
+
+```{r}
+customer= read.csv('~/Desktop/customer.csv', header=TRUE)
+
+customer = scale(customer[,-1])
+
+hc = hclust(dist(customer, method="euclidean"), method="ward.D2")
+plot(hc, hang = -0.01, cex = 0.7)
+
+
+hc2 = hclust(dist(customer), method="single")
+plot(hc2, hang = -0.01, cex = 0.7)
+
+
+library(cluster)
+?diana
+dv = diana(customer, metric = "euclidean")
+summary(dv)
+plot(dv)
+
+
+fit = cutree(hc, k = 4)
+table(fit)
+plot(hc)
+rect.hclust(hc, k = 4 , border="red")
+rect.hclust(hc, k = 5 , border="blue")
+rect.hclust(hc, k = 6 , border="cyan")
+
+set.seed(22)
+fit = kmeans(customer, 4)
+barplot(t(fit$centers), beside = TRUE,xlab="cluster", ylab="value")
+plot(customer, col = fit$cluster)
+clusplot(customer, fit$cluster, color=TRUE, shade=TRUE)
+
+data(iris)
+hc = hclust(dist(iris[,-5]), method="ward.D2")
+plot(hc)
+km = kmeans(dist(iris[,-5]), 3)
+plot(iris, col = km$cluster)
+clusplot(iris, km$cluster, color=TRUE, shade=TRUE)
+
+
+set.seed(22)
+km = kmeans(customer, 4)
+kms = silhouette(km$cluster,dist(customer))
+summary(kms)
+plot(kms)
+
+
+nk = 2:10
+set.seed(22)
+library(fpc)
+SW = sapply(nk, function(k) {
+  cluster.stats(dist(customer), kmeans(customer, centers=k)$cluster)$avg.silwidth
+})
+plot(nk, SW, type="l", xlab="number of clusers", ylab="average silhouette width")
+
+
+nk = 2:10
+set.seed(22)
+WSS = sapply(nk, function(k) {
+    kmeans(customer, centers=k)$tot.withinss
+})
+WSS
+plot(nk, WSS, type="l", xlab= "number of k", ylab="within sum of squares")
+
+```
+
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
