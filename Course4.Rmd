@@ -208,4 +208,67 @@ table(prediction, iris[,5])
 install.packages("e1071")
 library(e1071)
 fit = svm(Species ~., iris)
+
+library(caret)
+control = trainControl(method="repeatedcv", number=3, repeats=2)
+model = train(churn~., data=trainset, method="rpart", preProcess="scale", trControl=control)
+model
+
+
+library(rminer)
+model=fit(churn~.,trainset,model="svm")
+VariableImportance=Importance(model,trainset,method="sensv")
+L=list(runs=1,sen=t(VariableImportance$imp),sresponses=VariableImportance$sresponses)
+mgraph(L,graph="IMP",leg=names(trainset),col="gray",Grid=10)
+
+library(MASS)
+churn.glm = glm(churn ~., dat = trainset, family="binomial") 
+churn.glm.step <- stepAIC(churn.glm)
+summary(churn.glm.step)
+
+new_train = trainset[,! names(churnTrain) %in% c("churn", "international_plan", "voice_mail_plan")]
+cor_mat = cor(new_train)
+library(caret)
+highlyCorrelated = findCorrelation(cor_mat, cutoff=0.75)
+names(new_train)[highlyCorrelated]
+
+
+library(caret)
+confusionMatrix(table(predictions, testset$churn))
+
+library(ROCR)
+predictions <- predict(churn.rp, testset, type="prob")
+pred.to.roc <- predictions[, 1] 
+pred.rocr <- prediction(pred.to.roc, testset[,17]) 
+perf.rocr <- performance(pred.rocr, measure = "auc", x.measure = "cutoff") 
+perf.tpr.rocr <- performance(pred.rocr, "tpr","fpr") 
+plot(perf.tpr.rocr, colorize=T,main=paste("AUC:",(perf.rocr@y.values)))
+
+
+data(iris)
+fit = rpart(Species ~., iris)
+prediction = predict(fit, iris[,1:4], type="class")
+iris.table = table(prediction, iris[,5])
+confusionMatrix(iris.table)
+
+library(rminer)
+model=fit(Species~.,iris,model="rpart")
+VariableImportance=Importance(model,iris,method="sensv")
+L=list(runs=1,sen=t(VariableImportance$imp),sresponses=VariableImportance$sresponses)
+mgraph(L,graph="IMP",leg=names(iris),col="gray",Grid=10)
+
+iris2 = iris[iris$Species != 'versicolor',]
+iris2$Species = as.factor(as.character(iris2$Species))
+model = rpart(Species ~., iris2)
+confusionMatrix(table(predict(model, iris2, type='class'), iris2$Species))
+
+library(ROCR)
+predictions <- predict(model, iris2, type="prob")
+pred.to.roc <- predictions[, 2] 
+
+pred.rocr <- prediction(pred.to.roc, iris2[,5]) 
+perf.rocr <- performance(pred.rocr, measure = "auc", x.measure = "cutoff") 
+perf.tpr.rocr <- performance(pred.rocr, "tpr","fpr") 
+plot(perf.tpr.rocr, colorize=T,main=paste("AUC:",(perf.rocr@y.values)))
+
 ```
