@@ -59,7 +59,7 @@ clusplot(customer, fit$cluster, color=TRUE, shade=TRUE)
 data(iris)
 hc = hclust(dist(iris[,-5]), method="ward.D2")
 plot(hc)
-km = kmeans(dist(iris[,-5]), 3)
+km = kmeans(iris[,-5], 3)
 plot(iris, col = km$cluster)
 clusplot(iris, km$cluster, color=TRUE, shade=TRUE)
 
