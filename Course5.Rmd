@@ -91,10 +91,110 @@ plot(nk, WSS, type="l", xlab= "number of k", ylab="within sum of squares")
 ```
 
 
-You can also embed plots, for example:
+```{r}
+single_c =  hclust(dist(customer), method="single")
+hc_single = cutree(single_c, k = 4)
 
-```{r, echo=FALSE}
-plot(cars)
+complete_c =  hclust(dist(customer), method="complete")
+hc_complete =  cutree(complete_c, k = 4)
+
+set.seed(22)
+km = kmeans(customer, 4)
+
+cs = cluster.stats(dist(customer), km$cluster)
+cs[c("within.cluster.ss","avg.silwidth")]
+
+sapply(list(kmeans = km$cluster, hc_single = hc_single, hc_complete = hc_complete), function(c) cluster.stats(dist(customer), c)[c("within.cluster.ss","avg.silwidth")])
+
+data(iris)
+data <- iris[,-5]
+class <- iris[,5]
+
+results <- kmeans(data,3)
+results
+results$size
+results$cluster
+
+table(class,results$cluster)
+par(mfrow = c(2, 2))
+plot(data$Petal.Length,data$Petal.Width,col=results$cluster)
+plot(data$Petal.Length,data$Petal.Width,col=class)
+plot(data$Sepal.Length, data$Sepal.Width,col=results$cluster)
+plot(data$Sepal.Length, data$Sepal.Width,col=class)
+
+
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+library(FSelector)
+weights = random.forest.importance(churn~., trainset, importance.type = 1)
+print(weights)
+subset = cutoff.k(weights, 5)
+
+f = as.simple.formula(subset, "Class")
+print(f)
+
+
+library(caret)
+control = trainControl(method="repeatedcv", number=10, repeats=3)
+
+model = train(churn~., data=trainset, method="rpart", preProcess="scale", trControl=control)
+
+importance = varImp(model, scale=FALSE)
+importance
+
+library(rminer)
+model=fit(churn~.,trainset,model="rpart")
+VariableImportance=Importance(model,trainset,method="sensv")
+L=list(runs=1,sen=t(VariableImportance$imp),sresponses=VariableImportance$sresponses)
+mgraph(L,graph="IMP",leg=names(trainset),col="gray",Grid=10)
+
+churn.glm <- glm(churn~.,data=trainset,family=binomial())
+summary(churn.glm)
+library(MASS)
+churn.glm.step <- stepAIC(churn.glm)
+summary(churn.glm.step)
+
+ evaluator = function(subset) {
+   k = 5  
+   set.seed(2)
+   ind = sample(5, nrow(trainset), replace = TRUE)
+   results = sapply(1:k, function(i) {
+     train = trainset[ind !=i,]
+     test  = trainset[ind ==i,]
+     tree  = rpart(as.simple.formula(subset, "churn"), trainset)
+     error.rate = sum(test$churn != predict(tree, test, type="class")) / nrow(test)
+     return(1 - error.rate)
+   })
+   return(mean(results))
+ }
+attr.subset = hill.climbing.search(names(trainset)[!names(trainset) %in% "churn"], evaluator)
+
+f = as.simple.formula(attr.subset, "churn")
+f 
+
+```
+
+
+```{r}
+data(swiss)
+swiss = swiss[,-1]
+
+swiss.pca = prcomp(swiss,
+   center = TRUE,
+   scale  = TRUE)
+plot(swiss.pca$x[,1], swiss.pca$x[,2], xlim=c(-4,4))
+text(swiss.pca$x[,1], swiss.pca$x[,2], rownames(swiss.pca$x), cex=0.7, pos=4, col="red")
+biplot(swiss.pca)
+
+dataset <- read.csv('~/Desktop/eco_index.csv',head=TRUE, sep=',', row.names=1)
+pc.cr <- princomp(dataset, cor = TRUE) 
+plot(pc.cr)
+
+screeplot(pc.cr,  type="lines")
+abline(h=1, lty=3)
+
+
+```
+
