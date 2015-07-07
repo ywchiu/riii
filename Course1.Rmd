@@ -204,8 +204,18 @@ matrix(1:9, nrow=9) %*% matrix(1:9, nrow=1)
 ```
 ```{r}
 weather= c("sunny","rainy", "cloudy", "rainy", "cloudy")
+class(weather)
 weather_category = factor(weather)
 weather_category
+
+#假使我們沒有跟他說這是類別
+a = c(1,1,1,0,0)
+plot(a)
+a = factor(c(1,1,1,0,0))
+plot(a)
+a
+#[1] 1 1 1 0 0
+# Levels: 0 1
 
 unique(weather_category)
 
@@ -216,6 +226,13 @@ temperature_category[3] > temperature_category[1]
 temperature_category[4] > temperature_category[3]
 levels(weather_category)
 levels(temperature_category)
+
+
+a = c('car', 'car', 'river', 'bar', 'bar', 'qoo', 'car')
+factor()
+factor(a)
+levels(factor(a))
+
 weather= c("s","r", "c", "r", "c")
 weather_factor = factor(weather)
 levels(weather_factor) = c("cloudy","rainy","sunny")
@@ -230,8 +247,10 @@ data()
 data(iris)
 #觀察讀取到的資料集型態
 class(iris)
+str(iris)
 #自行建立Data Frame
 df = data.frame(a=c(1,2,3,4,5),b=c(2,3,4,5,6))
+class(df)
 
 #觀看前幾筆資料
 head(iris)
@@ -247,6 +266,8 @@ iris[1:3,]
 iris[1:3,1]
 #也可以用欄位名稱取值
 iris[1:3,"Sepal.Length"]
+iris[1:3,c("Sepal.Length", "Petal.Length")]
+
 #取前兩行資料
 head(iris[,1:2])
 #取特定欄位向量值
@@ -257,7 +278,7 @@ Five.Sepal.iris = iris[1:5, c("Sepal.Length", "Sepal.Width")]
 
 #可以用條件做篩選
 setosa.data = iris[iris$Species=="setosa",1:5]
-
+setosa.data2 = iris[which(iris$Species=="setosa"),1:5]
 #使用which 做資料篩選
 which(iris$Species=="setosa")
 
@@ -267,6 +288,10 @@ merge(flower.type, iris[1:3,], by ="Species")
 
 #用order做資料排序
 iris[order(iris$Sepal.Length, decreasing = TRUE),]
+
+a = c(2,1,5,3,6,7)
+sort(a)
+order(a)
 
 #Pie Chart
 table.iris = table(iris$Species)
@@ -283,5 +308,14 @@ stock_data$tf = ifelse(stock_data$Close - stock_data$Open > 0, TRUE, FALSE)
 stock_data$rise_down_range = cut(stock_data$Close - stock_data$Open, breaks=quantile(stock_data$Close - stock_data$Open))
 table(stock_data$rise_down_range)
 
+stock_data$Date = as.Date(stock_data$Date)
+str(stock_data)
+stock_data[stock_data$Date >= '2015-03-01' & stock_data$Date < '2015-08-01'  ,]
+stock_data[stock_data$Date >= '2015-03-01' & stock_data$Date < '2015-08-01'  ,"Close"]
+max(stock_data[stock_data$Date >= '2015-03-01' & stock_data$Date < '2015-08-01'  ,"Close"])
+
+stock_data2 = stock_data[stock_data$Date >= '2015-03-01' & stock_data$Date < '2015-08-01'  ,"Close"]
+boxplot(stock_data2)
+plot(stock_data$Date, stock_data$Close)
 
 ```
