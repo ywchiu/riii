@@ -96,13 +96,28 @@ bmi_vec[bmi_vec < 18.5 | bmi_vec >=24]
 ```
 
 ```{r}
+a = c(1,2,3,4,5)
+a = 1:5
+a = 1:100
+sum(1:100)
+```
+
+```{r}
+matrix(2:4, nrow=3)
+matrix(2:4, nrow=1)
+
 matrix(1:9, byrow=TRUE, nrow=3)
 matrix(1:9, nrow=3)
+
+cbind(height_vec, weight_vec)
+rbind(height_vec, weight_vec)
+
 kevin = c(85,73)
 marry = c(72,64)
 jerry = c(59,66)
 
 mat = matrix(c(kevin, marry, jerry), nrow=3, byrow= TRUE)
+class(mat)
 colnames(mat) = c('first', 'second')
 rownames(mat) = c('kevin', 'marry', 'jerry')
 
@@ -118,6 +133,10 @@ nrow(mat2)
 #取行數
 ncol(mat2)
 
+#slicing
+height_vec[c(2,3)]
+height_vec[2:3]
+
 #取第一列
 mat2[1,] 
 
@@ -126,21 +145,38 @@ mat2[,1]
 
 #取第二、三列
 mat2[2:3,]
+mat2[c(2,3),]
+
+#取第一、三列
+mat2[c(1,3),]
 
 #取第二列第一行的元素
 mat2[2,1]
 
+#取得第二個與第三個元素 (由第一列第一行到最後一列最後一行, 由上往下掃) 
+mat[2:3]
+
 #新增學生資料
 mat3 = rbind(mat2, c(78,63))
+rownames(mat3)
+rownames(mat3)[4] = "sam"
+rownames(mat3)
+nrow(mat3)
+
 rownames(mat3)[nrow(mat3)] = 'sam'
+#  rownames(mat3)[4] = "sam"
 mat3
 
 #新增考試分數
 mat4 = cbind(mat2,c(82,77,70))
+colnames(mat4)
+colnames(mat4)[3]
+colnames(mat4)[ncol(mat4)]
 colnames(mat4)[ncol(mat4)] = 'third'
 mat4
 
 rowSums(mat2)
+# sum(mat4[1,])
 colSums(mat2)
 
 #矩陣宣告
@@ -152,6 +188,9 @@ m1 + m2
 m1 - m2
 m1 * m2
 m1 / m2
+
+# what if 1/0
+ 1 / 0 
 
 #m1 X m2 
 m1 %*% m2
