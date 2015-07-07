@@ -91,7 +91,8 @@ height_vec = c(180,169,173)
 weight_vec = c(73,87,43)
 name_vec = c("Brian", "Toby", "Sherry")
 bmi_vec = weight_vec / (height_vec/100) ^2
-names(bmi_vec[bmi_vec >=18.5 & bmi_vec < 24])
+names(bmi_vec) = c("Brian", "Toby", "Sherry")
+bmi_vec[bmi_vec < 18.5 | bmi_vec >=24]
 ```
 
 ```{r}
