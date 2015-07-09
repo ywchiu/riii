@@ -4,6 +4,55 @@ author: "David Chiu"
 date: "Tuesday, May 19, 2015"
 output: html_document
 ---
+```{r}
+#Variable
+a = 3
+b <- 5
+a + b
+#Vector
+d = c(1,2,3,4,5)
+d +3
+names(d)
+names(d) = c("a","b","c","d","e")
+d
+#matrix
+matrix(c(1,2,3,4), nrow = 2)
+matrix(c(1,2,3,4),byrow=TRUE, nrow = 2)
+#dataframe
+data.frame(a= c(1,2,3), b = c(4,5,6))
+e = data.frame(a= c(1,2,3), b = c(4,5,6))
+e$b
+e$b == 5
+e[e$b == 5]
+e[e$b == 5,]
+#list
+list(item="hat", size=8.25)
+a = c(1,2,3,4,5)
+max(a)
+median(a)
+median()
+median(a)
+min(a)
+sum(a)
+f = function(a){
+list(sum1 = sum(a), min1 = min(a), max1=max(a))
+}
+f(a)
+summary(a)
+test = list(name="Toby", score = c(87,57,72))
+test
+test$name
+test$score
+test$score[1]
+test$score[2]
+test$score[3]
+iris
+flower= list(title="iris dataset", data= iris)
+str(flower)
+flower$data
+flower$data[1,"Sepal.Width"]
+
+```
 
 
 ```{r}
