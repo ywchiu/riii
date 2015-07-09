@@ -53,10 +53,25 @@ flower$data
 flower$data[1,"Sepal.Width"]
 
 ```
-
-
 ```{r}
-a = c(1,3,2,2,3,1,2,3)
+#https://nycopendata.socrata.com/Social-Services/NYC-Wi-Fi-Hotspot-Locations/a9we-mtpn?
+getwd()
+setwd("~/Desktop")
+getwd()
+wifi = read.csv("NYC_Free_Public_WiFi_12052014 (1).csv")
+unique(wifi$Remarks)
+
+read.table('match.txt', sep='|')
+
+a  = read.table('match.txt', sep='|')
+head(a)
+a  = read.table('match.txt', sep='|', header=TRUE)
+test.data = a
+write.table(test.data, "test.txt", sep=" ")
+write.csv(test.data, "test.csv")
+```
+```{r}
+a = c (1,3,2,2,3,1,2,3)
 a = sort(a)
 sum = 0
 current_word = ""
