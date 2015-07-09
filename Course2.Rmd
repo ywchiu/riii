@@ -388,6 +388,12 @@ names(cdc)
 hist(cdc$weight)
 hist(cdc$weight, breaks=50)
 stem(cdc$weight)
+
+
+table(head(cdc$weight %% 10))
+table(cdc$weight %% 10)
+plot(table(cdc$weight %% 10))
+
 #使用mean 函式
 mean(cdc$weight)
 
