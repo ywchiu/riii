@@ -424,11 +424,24 @@ stem(a)
 quantile(a,0.75)
 quantile(a,0.25)
 IQR(a)
+
+par(mfrow = c(1, 2))
+boxplot(cdc$weight)
+boxplot(cdc$height)
+
 boxplot(cdc$weight)
 boxplot(cdc$height ~ cdc$gender)
 bmi = (cdc$weight/cdc$height^2) * 703
 boxplot(bmi ~ cdc$genhlth)
 plot(cdc$weight, cdc$wtdesire)
+
+temp = sample.int(30, 1000, replace = TRUE)
+dirty = c(999,999,999,999,999)
+mean(c(temp, dirty ))
+dt = c(temp, dirty)
+median(dt) + 1.5 * IQR(dt)
+boxplot(dt[dt< 38.5 & dt > -6.5])
+
 #標準差
 sd(cdc$weight)
 sqrt(var(cdc$weight))
