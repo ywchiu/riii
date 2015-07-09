@@ -315,9 +315,13 @@ f = function(a, b = 5) {
 f(3)
 f(3,4)
 
+match = read.table("match.txt", sep = '|')
+matrix(-1, nrow= 2, ncol = 2)
 
-
-
+colnames(mat) = c("A","B")
+rownames(mat) = c("A","B")
+mat["A","B"] = 3
+mat["A","B"]
 ```
 
 Match Exercise
@@ -338,8 +342,15 @@ match_func()
 ```
 
 ```{r}
+x = list(c(1,2,3,4), c(5,6,7,8))
+for(i in x){
+     print(sum(i)) 
+}
+
 x = list(c(1,2,3), c(5,6,7,8))
 lapply(x, sum)
+lapply(x, mean)
+lapply(x, function(e) e+1 )
 
 
 m1 = matrix(1:4, byrow=TRUE, nrow=2)
@@ -349,6 +360,8 @@ li = list(m1, m2)
 lapply(li, mean)
 
 lapply(li,function(e) e[1,])
+lapply(li,function(qoo) qoo[1,])
+lapply(li,function(qoo) qoo[,1])
 
 x = list(c(1,2,3,4), c(5,6,7,8))
 lapply(x, sum)
