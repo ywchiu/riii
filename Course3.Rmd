@@ -4,7 +4,36 @@ author: "David Chiu"
 date: "Thursday, May 21, 2015"
 output: html_document
 ---
+```{r}
+a = 3 #numeric
+a = c(1,2,3,4,5) # vector
+a = matrix(1:4, byrow=TRUE, nrow = 2) # matrix
+a = data.frame(a =c(1,2), b=c(3,4)) # data frame
+a = list(a =c(1,2,3), b = "hello world") # list
+a = factor(c(1,2,3,3,3,2,1)) # factor
+```
 
+```{r}
+summary(cdc)
+str(cdc)
+hist(cdc$weight)
+boxplot(cdc$weight)
+boxplot(cdc$weight[cdc$weight< 450])
+```
+
+
+```{r}
+a = c(1,2,3,4,5)
+#absolute distance
+sum(abs(a - 3))
+
+#variance
+sum(((a - mean(a)) ^ 2)) /4
+var(a) 
+
+sd(a) #sqrt(var(a))
+```
+ 
 ```{r}
 rnorm(10)
 hist(rnorm(10))
@@ -27,7 +56,20 @@ hist(rpois(5000,3))
 load("cdc.Rdata")
 shapiro.test(sample(cdc$weight,5000))
 
+a = rnorm(10000, mean= 30000, sd = 5000)
+hist(a)
+sample.a = sample(a, 1000)
+mean(sample.a)
+shapiro.test(sample.a)
 
+low.salary = rnorm(10000, mean= 22000, sd = 3000)
+high.salary = rnorm(10000, mean= 220000, sd = 30000)
+hist(c(low.salary, high.salary))
+mean(c(low.salary, high.salary))
+# 121032.7
+
+sample.population = sample(c(low.salary, high.salary), 1000)
+mean(sample.population)
 
 ```
 ```{r}
