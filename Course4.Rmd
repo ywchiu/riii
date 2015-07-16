@@ -26,6 +26,7 @@ X_avg = mean(X)
 Y_avg = mean(Y)
 (sum(X*Y) - length(X)*X_avg * Y_avg) /  (sum(X^2) - length(X) * X_avg^2)
 Y_avg - 0.5 * X_avg
+
 data(Quartet)
 plot(Quartet$y1~Quartet$x)
 fit = lm(y1~x, Quartet)
@@ -67,11 +68,17 @@ lines(c(1,2,3),c(2,3,8), col='red')
 
 plot(Quartet$x, Quartet$y2)
 fit = lm(Quartet$y2 ~ Quartet$x)
-fit = lm(Quartet$y2 ~ poly(Quartet$x,2))
+fit2 = lm(Quartet$y2 ~ poly(Quartet$x,2))
+
+lines(i, j, col="red")
+
 i = Quartet$x
 j = fit$fit
 lines(sort(i),j[order(i)],col="blue")
 
+i = Quartet$x
+j = fit2$fit
+lines(sort(i),j[order(i)],col="red")
 
 plot(Quartet$x, Quartet$y3)
 fit = lm(Quartet$y3 ~ Quartet$x)
@@ -93,6 +100,9 @@ str(house_prices)
 attach(house_prices)
 detach(house_prices)
 plot(Price ~ SqFt)
+
+lm.1 <- lm(Price ~ SqFt, data=house_prices)
+summary(lm.1)
 
 plot(SqFt, Price, main="Scatter plot", xlab="Square feet", ylab="Price")
 abline(lm.1,col="red",lwd=3)

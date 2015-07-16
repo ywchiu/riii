@@ -56,6 +56,9 @@ hist(rpois(5000,3))
 load("cdc.Rdata")
 shapiro.test(sample(cdc$weight,5000))
 
+set.seed(2)
+head(.Random.seed,10)
+
 a = rnorm(10000, mean= 30000, sd = 5000)
 hist(a)
 sample.a = sample(a, 1000)
