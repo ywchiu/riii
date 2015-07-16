@@ -190,7 +190,38 @@ a*a
 b*b
 ```
 
+```{r}
+data(iris)
+head(iris)
+install.packages("rpart")
+library(rpart)
 
+?rpart
+fit = rpart(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, data =iris)
+
+plot(fit, margin =0.1)
+text(fit)
+
+plot(iris$Petal.Length, iris$Petal.Width)
+
+plot(iris$Petal.Length, iris$Petal.Width, col=iris$Species)
+abline(v = 2.45, col="red") 
+iris$Petal.Width, col=iris$Species)
+abline(h = 1.75, col="blue") 
+
+predict_res = predict(fit, iris, type = "class")
+table(predict_res, iris[,5])
+
+
+install.packages("e1071")
+library(e1071)
+
+?svm
+fit2 = svm(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, data =iris)
+
+predict_res2 = predict(fit2, iris, type = "class")
+table(predict_res2, iris[,5])
+```
 ```{r}
 install.packages("C50")
 library(C50)
