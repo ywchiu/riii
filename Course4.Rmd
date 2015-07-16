@@ -232,10 +232,12 @@ set.seed(2)
 ind <- sample(2, nrow(churnTrain), replace = TRUE, prob=c(0.7, 0.3))
 trainset = churnTrain[ind == 1,]
 testset = churnTrain[ind == 2,]
+library(rpart)
 churn.rp <- rpart(churn ~ ., data=trainset)
 plot(churn.rp, margin= 0.1)
 text(churn.rp, all=TRUE, use.n = TRUE)
 
+install.packages("party")
 library(party)
 ctree.model <- ctree(churn ~ . , data = trainset)
 plot(ctree.model)
@@ -306,7 +308,7 @@ iris.table = table(prediction, iris[,5])
 confusionMatrix(iris.table)
 
 library(rminer)
-model=fit(Species~.,iris,model="rpart")
+model=fit(Species~.,iris,model="svm")
 VariableImportance=Importance(model,iris,method="sensv")
 L=list(runs=1,sen=t(VariableImportance$imp),sresponses=VariableImportance$sresponses)
 mgraph(L,graph="IMP",leg=names(iris),col="gray",Grid=10)
