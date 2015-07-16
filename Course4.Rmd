@@ -171,6 +171,19 @@ validation_data$error <- validation_data$predict.price - validation_data$Price
 hist(training_data$error)
 hist(validation_data$error)
 
+head(training_data)
+head(training_data[, c("Price","predict.price")])
+plot(training_data$Price,training__data$predict.price)
+plot(training_data$Price,training_data$predict.price)
+cor(training_data$Price,training_data$predict.price)
+cor(training_data$Price,training_data$predict.price) * cor(training_data$Price,training_data$predict.price)
+head(validation_data)
+plot(validation_data$Price,validation_data$predict.price)
+cor(validation_data$Price,validation_data$predict.price)
+cor(validation_data$Price,validation_data$predict.price) * cor(validation_data$Price,validation_data$predict.price)
+
+
+
 a<-cor(training_data$Price,training_data$predict.price)
 b<-cor(validation_data$Price,validation_data$predict.price)
 a*a
