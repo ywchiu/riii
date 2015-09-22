@@ -123,4 +123,13 @@ m1 / m2
 m1 %*% m2 
 t(mat2)  # transpose
 
+kevin = c(85,73)
+marry = c(72,64)
+jerry = c(59,66)
+mat = matrix(c(kevin, marry, jerry), nrow=3, byrow= TRUE)
+
+# solution1
+mat[,1] * 0.4 + mat[,2] * 0.6
+#solution 2
+mat %*% c(0.4,0.6)
 ```
