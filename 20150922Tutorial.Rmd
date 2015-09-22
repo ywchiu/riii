@@ -55,4 +55,72 @@ height_vec != 180
 
 
 height_vec > 175 & height_vec < 180
+
+height_vec = c(180,169,173)
+names(height_vec) = c("Brian", "Toby", "Sherry")
+weight_vec = c(73,87,43)
+bmi_vec = weight_vec /((height_vec/100)^2)
+bmi_vec < 24 & bmi_vec >= 18.5 
+bmi_vec >= 24 | bmi_vec < 18.5 
+```
+
+```{r}
+1:100
+sum(1:100)
+
+matrix(1:9, nrow= 3)
+matrix(1:9, nrow= 3, byrow=TRUE)
+
+kevin = c(85,73)
+marry = c(72,64)
+jerry = c(59,66)
+
+c(kevin, marry)
+c(kevin, marry, jerry)
+matrix(c(kevin, marry, jerry), nrow = 3, byrow=TRUE)
+
+
+mat = matrix(c(kevin, marry, jerry), nrow = 3, byrow=TRUE)
+colnames(mat) = c("first","second")
+rownames(mat) = c('kevin', 'marry', 'jerry')
+mat2 = matrix(c(kevin, marry, jerry), nrow=3, byrow=TRUE, 
+dimnames=list(c('kevin', 'marry', 'jerry'),c('first', 'second')))
+
+dim(mat2)
+nrow(mat2)
+ncol(mat2)
+
+mat2[1,2]
+mat2["kevin","second"]
+mat2[,1]
+mat2[,"first"]
+mat2[2:3,]
+mat2[c("marry", "kevin"),]
+mat3=rbind(mat2, c(78, 63))
+
+ rownames(mat3)
+  rownames(mat3)[3]
+  rownames(mat3)[4]
+  rownames(mat3)[4] = "sam"
+  rownames(mat3)[nrow(mat3)] = "sam"
+  
+  mat4 = cbind(mat2,c(82,77,70))
+colnames(mat4)[ncol(mat4)] = 'third'
+mat4
+
+
+rowSums(mat2)
+colSums(mat2)
+
+m1 = matrix(1:4, byrow=TRUE, nrow=2)
+m2 = matrix(5:8, byrow=TRUE, nrow=2)
+
+m1 + m2
+m1 - m2
+m1 * m2
+m1 / m2
+
+m1 %*% m2 
+t(mat2)  # transpose
+
 ```
