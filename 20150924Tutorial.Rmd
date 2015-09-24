@@ -142,13 +142,24 @@ boxplot(fin_table$Close)
 fin_table$tf = ifelse(fin_table$Close  - fin_table$Open > 0, TRUE, FALSE)
 table(fin_table$tf)
 
-apple = read_html('http://www.appledaily.com.tw/realtimenews/section/new/')
+Sys.setlocale(category = "LC_ALL", locale="C")
 
-rtddt = apple %>% html_nodes('.rtddt') 
-time = sapply(rtddt, function(e) (e %>% html_node('time') %>% html_text))
+apple = read_html('http://www.appledaily.com.tw/realtimenews/section/new/', encoding="UTF-8")
 
-h1 = sapply(rtddt, function(e) (e %>% html_node('h1') %>% html_text))
-h2 = sapply(rtddt, function(e) (e %>% html_node('h2') %>% html_text))
-data.frame(title=h1, category= h2, time = time)
+#myStr <- iconv(apple, from='UTF-8', to='UTF-8')
+
+rtddt = apple %>% html_nodes('.rtddt')  
+time = sapply(rtddt, function(e) (e %>% html_node('time') %>% html_text() )) %>% iconv(from='UTF-8', to='UTF-8')
+
+h1 = sapply(rtddt, function(e) (e %>% html_node('h1') %>% html_text() )) %>% iconv(from='UTF-8', to='UTF-8') 
+
+h2 = sapply(rtddt, function(e) (e %>% html_node('h2') %>% html_text() ))  %>% iconv(from='UTF-8', to='UTF-8')
+
+df = data.frame(title=gsub("\n", "", h1), category= h2, time = time)
+Sys.setlocale(category = "LC_ALL", locale="")
+head(df)
+View(df)
+df[df$category=="生活",]
+
 
 ```
