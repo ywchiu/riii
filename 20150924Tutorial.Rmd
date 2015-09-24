@@ -163,3 +163,61 @@ df[df$category=="生活",]
 
 
 ```
+
+
+```{r}
+ a = function(param){
+     param
+ }
+a(3)
+a = function(param){
+     list(param = param, val = "qoo")
+ }
+a(3)
+
+item =list(thing="hat", size="8.25")
+item
+item$thing
+item$size
+
+
+test =list(name="Toby", score =c(87,57,72))
+test$score
+test$score[2]
+
+flower=list(title="iris dataset", data=iris)
+str(flower)
+flower$data[1,"Sepal.Width"]
+
+```
+
+```{r}
+match = read.table("~/riii/match.txt")
+getwd()
+setwd("~/")
+setwd("C:\\Users\\BigData\\riii")
+mat = read.table("match.txt")
+mat = read.table("match.txt", sep="|")
+
+
+tw2330 = read.csv("2330.csv", header=TRUE)
+head(tw2330)
+max(tw2330$Close)
+min(tw2330$Close)
+boxplot(tw2330$Close)
+tw2330$Date = as.Date(tw2330$Date)
+plot(tw2330$Date, tw2330$Close)
+
+
+getSymbols('VLKAY')
+barChart(VLKAY)
+addTA(EMA(Cl(VLKAY)), on=1, col=6)
+addTA(OpCl(VLKAY), col=4, type='b', lwd=2)
+
+newEMA <- newTA(EMA, Cl, on=1, col=7)
+newEMA()
+newEMA(on=NA, col=5)
+
+write.table(tw2330, file="2330_2.txt", sep=" ")
+write.csv(tw2330, file="2330_2.csv")
+```
