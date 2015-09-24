@@ -290,3 +290,84 @@ cat("hello")
 print("hello")
 
 ```
+
+```{r}
+for( i in 1:9){
+  for( j in 1:9){
+    cat(sprintf("%s X %s = %s ", i, j, i * j ))
+  }
+  cat("\n")
+}
+
+matrix(1:9, nrow = 9) %*% matrix(1:9, nrow = 1) 
+
+```
+
+```{r}
+f = function(a, b){
+    a + b
+}
+f(3,2)
+
+f = function(a, b){
+    a / b
+}
+
+f(a=3, b= 1)
+f(a=1, b= 3)
+
+f =function(a, b){
+  a *2
+}
+
+f(3)
+
+f =function(a, b){
+  a  + b
+}
+f(3)
+
+f =function(a, b= 20){
+  a  + b
+}
+f(3)
+
+f =function(a, b= 20){
+  c = a * 20
+  d = a + b
+  a  + b
+}
+f(2)
+
+```
+
+```{r}
+x =list(c(1,2,3,4), c(5,6,7,8))
+lapply(x, sum)
+lapply(x, mean)
+lapply(x, function(e) e + 3)
+sapply(x, sum)
+
+m1 =matrix(1:4, byrow=TRUE, nrow=2)
+m2 =matrix(5:8, byrow=TRUE, nrow=2)
+li =list(m1, m2)
+lapply(li, mean)
+
+lapply(li,function(e)e[1,])
+
+m1 =matrix(1:4, byrow=TRUE, nrow=2)
+m2 =matrix(5:8, byrow=TRUE, nrow=2)
+li =list(m1, m2)
+sapply(li, mean)
+sapply(li,function(e)e[1,])
+
+m =matrix(1:4, byrow=TRUE, nrow=2)
+apply(m, 1, sum)#rowSum
+apply(m, 2, sum)#colSums
+
+x =c(80,70,59,88,72,57)
+t= c(1 ,1 ,2 ,1 ,1 ,2)
+tapply(x,t, mean)
+tapply(iris$Sepal.Length, iris$Species, mean)
+
+```
