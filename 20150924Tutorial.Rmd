@@ -1,0 +1,82 @@
+---
+title: "20150924 Tutorial"
+output: html_document
+---
+
+```{r}
+#install.packages("jiebaR")
+library("jiebaR")
+
+words = "hello world"
+test1 = worker()
+test1 <= words
+words = "今天天氣真好"
+test1 = worker()
+test1 <= words
+words = "今天天氣真好, 我想要看電視"
+test1 = worker()
+test1 <= words
+
+```
+
+```{r}
+data(iris)
+#install.packages("e1071")
+library(e1071)
+fit = svm(Species ~., data = iris)
+
+library("rpart")
+fit = rpart(Species ~., data = iris)
+
+plot(fit, margin= 0.1)
+text(fit)
+
+```
+
+
+```{r}
+a = 3
+a = c(3)
+c(1,2,3,4) + 2
+
+1:4
+matrix(1:4, byrow=TRUE, nrow = 2)
+
+
+kevin=c(85,73)
+marry =c(72,64)
+jerry =c(59,66)
+mat =matrix(c(kevin, marry, jerry), nrow=3, byrow=TRUE)
+mat %*% c(0.4, 0.6 )
+
+
+```
+
+
+```{r}
+gender = c(0,0,0,1,1,1,1,0,0,0,0)
+plot(gender)
+gender = as.factor(gender)
+plot(gender)
+
+weather=c("sunny","rainy", "cloudy", "rainy", "cloudy")
+weather_category=factor(weather)
+weather
+weather_category
+
+
+temperature =c("Low", "High", "High", "Medium", "Low", "Medium")
+temperature_category=factor(temperature, order=TRUE, levels=c("Low", "Medium", "High"))
+temperature_category
+temperature_category[3]>temperature_category[1]
+temperature_category[4]>temperature_category[3]
+
+
+levels(weather_category)
+levels(temperature_category)
+
+weather=c("s","r", "c", "r", "c")
+weather_factor=factor(weather)
+levels(weather_factor)=c("cloudy","rainy","sunny")
+weather_factor
+```
