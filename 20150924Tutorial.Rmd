@@ -221,3 +221,72 @@ newEMA(on=NA, col=5)
 write.table(tw2330, file="2330_2.txt", sep=" ")
 write.csv(tw2330, file="2330_2.csv")
 ```
+
+```{r}
+x =5;
+if(x >3)
+{print("x > 3");
+}else{
+  print("x <= 3");
+}
+x =5;
+if(x >3){
+  print("x > 3");
+}else if(x ==3){
+    print("x == 3");
+}else{
+    print("x < 3");
+}
+
+for(i in 1:10){
+  print(i);
+}
+a  = proc.time()
+asum=0
+for( i in 1:100)
+  {
+  asum=asum+i;
+}
+a - proc.time() 
+asum
+
+sum(1:100)
+
+
+
+a  = proc.time()
+asum=0
+for( i in 1:10000000)
+  {
+  asum=asum+i;
+}
+a - proc.time() 
+asum
+
+b  = proc.time()
+sum(as.numeric(1:10000000))
+b - proc.time() 
+
+
+mat =matrix(1:9, byrow=TRUE, nrow=3)
+for(i in seq_len(nrow(mat)))
+  {
+  for(j in seq_len(ncol(mat)))
+  {
+    print(mat[i, j])
+    }
+}
+
+sum=0;
+cnt=0;
+while(cnt<=100){
+  sum=sum+cnt;
+  cnt=cnt+1;
+  }
+sum
+
+sprintf("%s %s", "hello", "world")
+cat("hello")
+print("hello")
+
+```
