@@ -80,3 +80,75 @@ weather_factor=factor(weather)
 levels(weather_factor)=c("cloudy","rainy","sunny")
 weather_factor
 ```
+
+```{r}
+data(iris)
+head(iris)
+class(iris)
+df=data.frame(a=c(1,2,3,4,5),b=c(2,3,4,5,6))
+
+#觀看前幾筆資料
+head(iris)
+?head
+head(iris, 10)
+#觀看後幾筆資料
+tail(iris)
+tail(iris, 10)
+#使用str函式檢視架構
+str(iris)
+
+
+#取前三列資料
+iris[1:3,]
+# 取前三列第一行的資料
+iris[1:3,1]
+#也可以用欄位名稱取值
+iris[1:3,"Sepal.Length"]
+#取前兩行資料
+head(iris[,1:2])
+#取特定欄位向量值
+iris$Sepal.Length
+
+#以Merge 做資料合併
+flower.type=data.frame(Species ="setosa", Flower ="iris")
+merge(flower.type, iris[1:3,], by="Species")
+#用order做資料排序
+iris[order(iris$Sepal.Length, decreasing =TRUE),]
+
+a = c(1,3,2,4,6,5,9)
+sort(a)
+sort(a, decreasing=TRUE)
+order(a)
+order(a, decreasing=TRUE)
+
+pie(table(iris$Speices))
+
+hist(iris$Sepal.Length)
+
+boxplot(iris$Sepal.Length ~ iris$Species)
+
+plot(x=iris$Petal.Length, y=iris$Petal.Width, col=iris$Species)
+
+#install.packages("rvest")
+library(rvest)
+finance = read_html("https://www.google.com/finance/historical?cid=674465&startdate=Sep%2025%2C%202000&enddate=Sep%2024%2C%202015&num=30&ei=GWYDVpnCEdCI0ATZzY-IAQ&start=30")
+fin_table = finance %>% html_node("table.gf-table.historical_price") %>% html_table(header=TRUE)
+class(fin_table)
+head(fin_table)
+max(fin_table$Close)
+min(fin_table$Close)
+boxplot(fin_table$Close)
+
+fin_table$tf = ifelse(fin_table$Close  - fin_table$Open > 0, TRUE, FALSE)
+table(fin_table$tf)
+
+apple = read_html('http://www.appledaily.com.tw/realtimenews/section/new/')
+
+rtddt = apple %>% html_nodes('.rtddt') 
+time = sapply(rtddt, function(e) (e %>% html_node('time') %>% html_text))
+
+h1 = sapply(rtddt, function(e) (e %>% html_node('h1') %>% html_text))
+h2 = sapply(rtddt, function(e) (e %>% html_node('h2') %>% html_text))
+data.frame(title=h1, category= h2, time = time)
+
+```
