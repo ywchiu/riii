@@ -59,3 +59,55 @@ b = c(172,173,178,182,183,189)
 stem(b)
 
 ```
+
+
+```{r}
+a = c(25,23,32,52,65,38,42,57)
+mean(a)
+
+b = c(a, 300) 
+mean(b)
+
+a = sort(a)
+median(a)
+
+b = sort(b)
+median(b)
+
+
+mean(cdc$weight)
+c = c(b, NA)
+mean(b)
+mean(c)
+mean(c, na.rm=TRUE)
+
+mean(cdc$weight)
+median(cdc$weight)
+
+set.seed(123)
+sample.int(42,6)
+
+set.seed(123)
+temp = sample.int(30 , 100, replace=TRUE )
+
+temp = c(temp, 999,999,999)
+mean(temp)
+median(temp)
+
+
+a = c(1,4,4,4,1,2,2,1,4)
+names(which.max(table(a)))
+
+which.max(table(cdc$weight %% 10))
+
+table(cdc$smoke100)
+table(cdc$smoke100) / length(cdc$smoke100) 
+
+barplot(table(cdc$smoke100))
+barplot(table(cdc$smoke100), names.arg=c("nan", "smoke")) 
+
+gender_smokers = table(cdc$gender, cdc$smoke100)
+
+mosaicplot(gender_smokers)
+
+```
