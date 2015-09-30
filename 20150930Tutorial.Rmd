@@ -1,0 +1,61 @@
+---
+title: "20150930Tutorial"
+output: html_document
+---
+
+
+```{r}
+getwd()
+setwd("D:/OS DATA/Desktop")
+
+match = read.table("match.txt", sep='|')
+mat = matrix(-1, nrow=5, ncol=5)
+colnames(mat) = c("A","B", "C","D", "E")
+rownames(mat) = c("A","B", "C","D", "E")
+mat["A","B"] = 1
+
+for (i in 1:nrow(match)){
+  row = match[i,];
+  mat[row$V1, row$V2] = row$V3;
+}
+
+match_func = function(filename="match.txt"){
+  match = read.table(filename, sep='|');
+  mat = matrix(-1, nrow=5, ncol=5);
+  colnames(mat) = c("A","B", "C","D", "E");
+  rownames(mat) = c("A","B", "C","D", "E");
+  for (i in 1:nrow(match)){
+    row = match[i,];
+    mat[row$V1, row$V2] = row$V3;
+  }
+  mat;
+}
+
+
+
+```
+
+
+
+```{r}
+
+getwd()
+load('cdc.Rdata')
+head(cdc)
+class(cdc)
+str(cdc)
+names(cdc)
+a = c(1,4,2,5,7,8,9)
+hist(a)
+hist(a, breaks = 2)
+hist(a, freq=FALSE)
+hist(cdc$weight)
+hist(cdc$weight, breaks=50)
+hist(cdc$weight, breaks=200)
+table(cdc$weight %% 10)
+
+stem(a)
+b = c(172,173,178,182,183,189)
+stem(b)
+
+```
