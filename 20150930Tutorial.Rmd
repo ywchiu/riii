@@ -162,3 +162,51 @@ boxplot(bmi ~ cdc$genhlth)
 
 plot(cdc$weight, cdc$wtdesire)
 ```
+
+
+```{r}
+ hist(rnorm(100))
+
+hist(rnorm(1000))
+hist(rnorm(1000), freq=FALSE)
+
+curve(dnorm, -3,3)
+dnorm(0)
+pnorm(1)
+abline(v=-1, col="blue")
+pnorm(-1)
+pnorm(1) - pnorm(-1)
+
+
+ curve(dnorm, -20,20, col ="red")
+curve(dnorm(x, mean=3, sd= 5), -12, 16, add=TRUE, col="blue")
+curve(dnorm(x, mean=3, sd= 5), -12, 16)
+
+abline(v = 0, col="red")
+abline(h = 0.06664492, col="blue")
+dnorm(0, mean=3, sd= 5)
+
+curve(pnorm(x), -3,3)
+abline(v=1, col="red")
+
+set.seed(50)
+y = runif(1000,0,5)
+hist(y)
+
+x = rnorm(1000)
+hist(x)
+
+
+set.seed(50)
+y = runif(1000,0,5)
+hist(y)
+x = rnorm(1000)
+hist(x)
+y = runif(1000,0,5)
+hist(y)
+
+hist(rpois(5000,3))
+
+shapiro.test(cdc$weight)
+shapiro.test(rnorm(1000))
+```
