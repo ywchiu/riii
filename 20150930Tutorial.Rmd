@@ -262,3 +262,20 @@ hist(sample_means50, breaks = 20, xlim = xlimits)
 hist(sample_means100, breaks = 20, xlim = xlimits)
 
 ```
+
+```{r}
+population = ames$Gr.Liv.Area
+samp = sample(population, 50)
+sample_mean = mean(samp)
+
+pnorm(1.96) - pnorm(-1.96)
+ curve(dnorm, -3,3)
+x = c(-1.96, seq(-1.96, 1.96, 0.01), 1.96)
+y = c(0, dnorm(seq(-1.96, 1.96, 0.01)), 0)
+polygon(x = x, y = y, add=TRUE, col="blue")
+
+sde = sd(samp)/sqrt(50)
+lower  = sample_mean - 1.96 * sde
+upper  = sample_mean + 1.96 * sde
+
+```
