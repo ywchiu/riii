@@ -26,5 +26,40 @@ mpg.mu = mean(mtcars$mpg)
 mpg_am = mtcars$mpg[mtcars$am == 0]
 t.test(mpg_am,mu = mpg.mu)
 
+boxplot(mtcars$mpg~mtcars$am,ylab='mpg',names=c('automatic','manual'))
+abline(h=mean(mtcars$mpg[mtcars$am==0]),lwd=2, col="blue")
+abline(h=mean(mtcars$mpg[mtcars$am==1]),lwd=2, col="red")
+t.test(mtcars$mpg~mtcars$am)
+
+```
+
+```{r}
+data(iris)
+str(iris)
+# install.packages("rpart")
+library("rpart")
+
+fit  = rpart(Species ~ Sepal.Length + Sepal.Width + Petal.Width + Petal.Length, data=iris)
+fit
+plot(fit, margin = 0.1)
+
+plot(iris$Petal.Width, iris$Petal.Length)
+
+plot(iris$Petal.Width, iris$Petal.Length, col=iris$Species)
+
+abline(v = 0.8, col="red")
+abline(v = 1.75, col="blue")
+
+
+fit2  = rpart(Species ~ ., data=iris)
+
+plot(fit2, margin = 0.1)
+text(fit2)
+
+plot(iris$Petal.Width, iris$Petal.Length, col=iris$Species)
+
+abline(h = 2.45, col="red")
+abline(v = 1.75, col="blue")
+
 ```
 
