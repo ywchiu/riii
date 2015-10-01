@@ -148,3 +148,32 @@ L=list(runs=1,sen=t(VariableImportance$imp),sresponses=VariableImportance$srespo
 mgraph(L,graph="IMP",leg=names(trainset),col="gray",Grid=10)
 
 ```
+
+```{r}
+names(churnTrain) %in% c("churn", "total_intl_calls", "total_intl_charge")
+
+new_train = trainset[,! names(churnTrain) %in% c("churn", "international_plan", "voice_mail_plan")]
+
+cor_mat = cor(new_train)
+highlyCorrelated = findCorrelation(cor_mat, cutoff=0.75)
+names(new_train)[highlyCorrelated]
+
+table(predictions, testset$churn)
+library(caret)
+confusionMatrix(table(predictions, testset$churn))
+```
+
+```{r}
+install.packages("ROCR")
+library(ROCR)
+
+predictions <- predict(churn.rp, testset, type="prob")
+pred.to.roc <- predictions[, 1] 
+pred.rocr <- prediction(pred.to.roc, as.factor(testset[,(dim(testset)[[2]])])) 
+
+perf.rocr <- performance(pred.rocr, measure = "auc", x.measure = "cutoff") 
+perf.tpr.rocr <- performance(pred.rocr, "tpr","fpr") 
+plot(perf.tpr.rocr, colorize=T,main=paste("AUC:",(perf.rocr@y.values)))
+
+
+```
