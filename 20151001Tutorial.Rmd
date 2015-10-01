@@ -1,7 +1,7 @@
 ---
 title: "20151001Tutorial"
 author: "David Chiu"
-date: "2015¦~10¤ë1¤é"
+date: "2015å¹´10æœˆ1æ—¥"
 output: html_document
 ---
 
@@ -77,6 +77,7 @@ a = sample(c(0,1), 50, replace=TRUE, prob=c(0.8,0.2))
 b = 1:50
 b[a==0]
 b[a==1]
+set.seed(2)
 ind <- sample(2, nrow(churnTrain), replace = TRUE, prob=c(0.7, 0.3))
 trainset = churnTrain[ind == 1,]
 testset = churnTrain[ind == 2,]
@@ -90,4 +91,60 @@ install.packages("party")
 library(party)
  fit2 = ctree(churn ~., data=trainset)
  plot(fit2)
+ 
+ 
+ fit3 = ctree(Species ~., data=iris)
+ plot(fit3)
+ 
+ churn.rp <- rpart(churn ~ ., data=trainset)
+plot(churn.rp, margin= 0.1)
+text(churn.rp, all=TRUE, use.n = TRUE)
+
+
+min(churn.rp$cptable[,"xerror"])
+which.min(churn.rp$cptable[,"xerror"])
+churn.cp = churn.rp$cptable[7,"CP"]
+prune.tree = prune(churn.rp, cp= churn.cp)
+plot(prune.tree, margin= 0.1)
+text(prune.tree, all=TRUE , use.n=TRUE)
+
+
+
+churn.cp = churn.rp$cptable[5,"CP"]
+prune.tree = prune(churn.rp, cp= churn.cp)
+plot(prune.tree, margin= 0.1)
+text(prune.tree, all=TRUE , use.n=TRUE)
+
+head(predict(churn.rp, testset))
+head(predict(churn.rp, testset, type="class"))
+predictions = predict(churn.rp, testset, type="class")
+
+
+data(iris)
+fit = rpart(Species ~., data=iris)
+pre2 = predict(fit, iris, type="class")
+table(iris$Species, pre2)
+
+install.packages("e1071")
+library(e1071)
+install.packages("caret")
+library(caret)
+control = trainControl(method="repeatedcv", number=10, repeats=3)
+model = train(churn~., data=trainset, method="rpart", preProcess="scale", trControl=control)
+model
+
+
+install.packages("rminer")
+library(rminer)
+model=fit(churn~.,trainset,model="rpart")
+VariableImportance=Importance(model,trainset,method="sensv")
+L=list(runs=1,sen=t(VariableImportance$imp),sresponses=VariableImportance$sresponses)
+mgraph(L,graph="IMP",leg=names(trainset),col="gray",Grid=10)
+
+
+model=fit(churn~.,trainset,model="svm")
+VariableImportance=Importance(model,trainset,method="sensv")
+L=list(runs=1,sen=t(VariableImportance$imp),sresponses=VariableImportance$sresponses)
+mgraph(L,graph="IMP",leg=names(trainset),col="gray",Grid=10)
+
 ```
