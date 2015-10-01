@@ -1,7 +1,7 @@
 ---
 title: "20151001Tutorial"
 author: "David Chiu"
-date: "2015å¹´10æœˆ1æ—¥"
+date: "2015¦~10¤ë1¤é"
 output: html_document
 ---
 
@@ -63,3 +63,31 @@ abline(v = 1.75, col="blue")
 
 ```
 
+
+```{r}
+
+install.packages("C50")
+library("C50")
+data(churn)
+str(churnTrain)
+churnTrain = churnTrain[,! names(churnTrain) %in% c("state", "area_code", "account_length") ]
+nrow(churnTrain)
+
+a = sample(c(0,1), 50, replace=TRUE, prob=c(0.8,0.2))
+b = 1:50
+b[a==0]
+b[a==1]
+ind <- sample(2, nrow(churnTrain), replace = TRUE, prob=c(0.7, 0.3))
+trainset = churnTrain[ind == 1,]
+testset = churnTrain[ind == 2,]
+library(rpart)
+ fit = rpart(churn ~., data=trainset)
+plot(fit, margin = 0.1)
+text(fit)
+
+
+install.packages("party")
+library(party)
+ fit2 = ctree(churn ~., data=trainset)
+ plot(fit2)
+```
