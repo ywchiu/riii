@@ -1,0 +1,30 @@
+---
+title: "20151001Tutorial"
+author: "David Chiu"
+date: "2015年10月1日"
+output: html_document
+---
+
+```{r}
+data(mtcars)
+names(mtcars)
+mtcars[,1:3]
+cov(mtcars[,1:3])
+cor(mtcars[,1:3])
+
+```
+```{r}
+binom.test(x=92, n=315, p=1/6)
+
+boxplot(mtcars$mpg, mtcars$mpg[mtcars$am==0], ylab = "mpg", names=c("overall","automobile"))
+abline(h=mean(mtcars$mpg),lwd=2, col="red")
+abline(h=mean(mtcars$mpg[mtcars$am==0]),lwd=2, col="blue")
+
+
+
+mpg.mu = mean(mtcars$mpg)
+mpg_am = mtcars$mpg[mtcars$am == 0]
+t.test(mpg_am,mu = mpg.mu)
+
+```
+
