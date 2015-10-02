@@ -68,3 +68,38 @@ plot(dv)
 ```
 
 
+```{r}
+set.seed(22)
+fit = kmeans(customer, 4)
+barplot(t(fit$centers), beside = TRUE,xlab="cluster", ylab="value")
+plot(customer, col = fit$cluster)
+
+
+set.seed(22)
+km = kmeans(customer, 4)
+kms = silhouette(km$cluster,dist(customer))
+summary(kms)
+plot(kms)
+
+nk = 2:10
+install.packages("fpc")
+sapply(nk, function(k) {k + 3})
+library(fpc)
+SW = sapply(nk, function(k) {
+  cluster.stats(dist(customer), kmeans(customer, centers=k)$cluster)$avg.silwidth
+})
+plot(nk, SW, type="l", xlab="number of clusers", ylab="average silhouette width")
+
+
+nk = 2:10
+set.seed(22)
+WSS = sapply(nk, function(k) {s
+    kmeans(customer, centers=k)$tot.withinss
+})
+WSS
+plot(nk, WSS, type="l", xlab= "number of k", ylab="within sum of squares")
+
+
+
+```
+
