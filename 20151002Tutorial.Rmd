@@ -1,0 +1,70 @@
+---
+title: "20151002Tutorial"
+author: "David Chiu"
+date: "2015年10月2日"
+output: html_document
+---
+
+
+
+```{r}
+?dist
+x = c(0, 0, 1, 1, 1, 1)
+y = c(1, 0, 1, 1, 0, 1)
+#歐氏距離
+dist(rbind(x,y), method =  "euclidean")
+sqrt(sum((x - y) ^2))
+dist(rbind(x,y), method ="minkowski", p=2)
+
+
+#曼哈頓距離
+dist(rbind(x,y), method =  "manhattan")
+sum(abs(x - y))
+dist(rbind(x,y), method ="minkowski", p=1)
+
+```
+
+
+```{r}
+customer = read.csv("customer.csv")
+customer = customer[,-1]
+customer = scale(customer)
+dist(customer, method="euclidean")
+hc = hclust(dist(customer, method="euclidean"), method="ward.D2")
+plot(hc)
+plot(hc, hang = -0.01, cex = 0.7)
+
+fit = cutree(hc, k = 4)
+table(fit)
+plot(hc)
+rect.hclust(hc, k = 4 , border="red")
+
+fit = cutree(hc, k = 3)
+table(fit)
+plot(hc)
+rect.hclust(hc, k = 3 , border="red")
+
+
+
+
+hc2 = hclust(dist(customer, method="euclidean"), method="single")
+plot(hc2, hang = -0.01, cex = 0.7)
+
+
+head(iris)
+iris = scale(iris[,-5])
+hc = hclust(dist(iris, method="euclidean"), method="ward.D2")
+plot(hc, hang = -0.01, cex = 0.7)
+
+```
+
+```{r}
+
+library(cluster)
+?diana
+dv = diana(customer, metric = "euclidean")
+summary(dv)
+plot(dv)
+```
+
+
