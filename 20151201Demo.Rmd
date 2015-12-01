@@ -64,3 +64,47 @@ card_length = 3
 card_width = "5 inches"
 card_length * card_width
 ```
+
+```
+getwd()
+gdp = read.csv("C:/Users/BigData/Desktop/gdp.csv",header=TRUE)
+setwd("C:/Users/BigData/Desktop")
+
+x = c(1,2,3,7)
+y= c(2,3,5,1)
+x+y
+x*y
+x - y
+x/y
+
+x + 10
+x + c(10)
+x + c(10,10,10,10)
+
+x + c(1,2)
+x + c(1,2,1,2)
+
+x = c(1,2,3,7)
+sum(x)
+
+?sum
+help(sum)
+
+x = c(1,2,3,4, NA)
+sum(x)
+sum(x, na.rm=TRUE)
+
+height_vec = c(180,169,173)
+height_vec
+names(height_vec) = c("Brian", "Toby", "Sherry")
+height_vec
+
+name_vec = c("Brian", "Toby", "Sherry")
+names(height_vec) = name_vec
+height_vec > 175
+height_vec / 100
+height_vec > 175 | height_vec < 170
+height_vec < 175 & height_vec > 170
+
+```
+
