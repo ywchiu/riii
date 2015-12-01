@@ -5,6 +5,7 @@ date: "2015年12月1日"
 output: html_document
 ---
 
+## RDemo
 ```
 install.packages("car")
 library("car")
@@ -17,7 +18,7 @@ abline(fit, col="red")
 fit
 
 ```
-
+## GDP
 ```
 gdp = read.csv("gdp.csv",header=TRUE)
 
@@ -33,7 +34,7 @@ summary(fit)
 
 ```
 
-
+## RBasic
 ```
 help.search(“sum”)
 demo()
@@ -64,7 +65,7 @@ card_length = 3
 card_width = "5 inches"
 card_length * card_width
 ```
-
+## Vector
 ```
 getwd()
 gdp = read.csv("C:/Users/BigData/Desktop/gdp.csv",header=TRUE)
@@ -108,3 +109,78 @@ height_vec < 175 & height_vec > 170
 
 ```
 
+## Vector Example
+```
+height_vec = c(180,169,173)
+names(height_vec) = c("Brian", "Toby", "Sherry")
+height_vec
+weight_vec = c(73,87,43)
+bmi_vec = weight_vec/(height_vec / 100)^2
+bmi_vec < 18.5 | bmi_vec >= 24
+names(bmi_vec[bmi_vec < 18.5 | bmi_vec >= 24])
+
+a = c(1,2,3,4)
+b = c(FALSE, FALSE, TRUE, FALSE)
+a[b]
+a[!b]
+
+```
+
+
+```
+1:10
+sum(1:10)
+seq(1,10,2)
+
+1:9
+matrix(1:9, nrow = 3)
+matrix(1:9, nrow = 3, byrow=TRUE)
+
+a = c(1,2)
+b = c(3,4)
+c(a,b)
+
+kevin = c(85,73)
+marry = c(72,64)
+jerry = c(59,66)
+
+matrix(c(kevin,marry,jerry), nrow=3, byrow=TRUE)
+rownames(mat) = c("kevin", "marry", "jerry")
+colnames(mat) = c("first", "second")
+mat
+
+mat2 = matrix(c(kevin, marry, jerry), nrow=3, byrow=TRUE, dimnames=list(c('kevin', 'marry', 'jerry'),c('first', 'second')))
+
+install.packages("swirl")
+library("swirl")
+dim(mat)
+nrow(mat)
+ncol(mat)
+
+mat[2:3,2]
+mat[2:3,]
+mat[,]
+mat[1,]
+ mat[2,2] =64
+ mat3 = rbind(mat2, c(78,63))
+ rownames(mat3)[nrow(mat3)] = 'sam'
+mat3
+
+mat4 = cbind(mat2,c(82,77,70))
+colnames(mat4)[ncol(mat4)] = 'third'
+mat4
+
+rowSums(mat2)
+colSums(mat2)
+
+m1 = matrix(1:4, byrow=TRUE, nrow=2)
+m2 = matrix(5:8, byrow=TRUE, nrow=2)
+
+m1 + m2
+m1 - m2
+m1 * m2
+m1 / m2
+
+m1 %*% m2
+
+```
