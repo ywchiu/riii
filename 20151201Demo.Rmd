@@ -1,0 +1,66 @@
+---
+title: "20151201Demo"
+author: "David Chiu"
+date: "2015年12月1日"
+output: html_document
+---
+
+```
+install.packages("car")
+library("car")
+data()
+data(Quartet)
+
+plot(Quartet$x, Quartet$y1)
+fit = lm(Quartet$y1 ~ Quartet$x)
+abline(fit, col="red")
+fit
+
+```
+
+```
+gdp = read.csv("gdp.csv",header=TRUE)
+
+gdp = gdp[1:15,]
+gdp$GDP = as.numeric(sub(",", "", gdp$GDP))
+gdp$Export = as.numeric(sub(",", "", gdp$Export))
+cor(gdp$Export, gdp$GDP)
+plot(gdp$Export ~ gdp$GDP)
+fit = lm(gdp$Export ~ gdp$GDP)
+abline(fit, col="red")
+fit
+summary(fit)
+
+```
+
+
+```
+help.search(“sum”)
+demo()
+demo("graphics")
+rm(a)
+
+
+3+8
+3-8
+3*8
+3/8
+1/0
+10/3
+11%%2
+
+a = 3
+a <- 5
+fit = lm(y1 ~ x, data =Quartet)
+fit <- lm(y1 ~ x, data =Quartet)
+
+numer = 17.8
+chr = "hello"
+logic1 = TRUE
+class(numer)
+class(chr)
+class(logic1)
+card_length = 3
+card_width = "5 inches"
+card_length * card_width
+```
