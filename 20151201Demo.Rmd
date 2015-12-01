@@ -307,3 +307,25 @@ ordered_stock[nrow(ordered_stock),]
 stock2[1,] - ordered_stock[1,]
 
 ```
+
+
+## List
+
+```
+item = list(thing="hat", size="8.25")
+item
+
+test = list(name="Toby", score = c(87,57,72))
+test$score
+test$score[2]
+
+flower= list(title="iris dataset", data= iris)
+class(flower)
+class(flower$data)
+flower$data[1,"Sepal.Width"]
+
+```
+## File read and write
+```
+test.data = read.table(“match.txt" ,header = TRUE, sep=“|”)
+```
