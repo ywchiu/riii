@@ -1,0 +1,454 @@
+---
+title: "Course2"
+author: "David Chiu"
+date: "Tuesday, May 19, 2015"
+output: html_document
+---
+```{r}
+#Variable
+a = 3
+b <- 5
+a + b
+#Vector
+d = c(1,2,3,4,5)
+d +3
+names(d)
+names(d) = c("a","b","c","d","e")
+d
+#matrix
+matrix(c(1,2,3,4), nrow = 2)
+matrix(c(1,2,3,4),byrow=TRUE, nrow = 2)
+#dataframe
+data.frame(a= c(1,2,3), b = c(4,5,6))
+e = data.frame(a= c(1,2,3), b = c(4,5,6))
+e$b
+e$b == 5
+e[e$b == 5]
+e[e$b == 5,]
+#list
+list(item="hat", size=8.25)
+a = c(1,2,3,4,5)
+max(a)
+median(a)
+median()
+median(a)
+min(a)
+sum(a)
+f = function(a){
+list(sum1 = sum(a), min1 = min(a), max1=max(a))
+}
+f(a)
+summary(a)
+test = list(name="Toby", score = c(87,57,72))
+test
+test$name
+test$score
+test$score[1]
+test$score[2]
+test$score[3]
+iris
+flower= list(title="iris dataset", data= iris)
+str(flower)
+flower$data
+flower$data[1,"Sepal.Width"]
+
+```
+```{r}
+#https://nycopendata.socrata.com/Social-Services/NYC-Wi-Fi-Hotspot-Locations/a9we-mtpn?
+getwd()
+setwd("~/Desktop")
+getwd()
+wifi = read.csv("NYC_Free_Public_WiFi_12052014 (1).csv")
+unique(wifi$Remarks)
+
+read.table('match.txt', sep='|')
+
+a  = read.table('match.txt', sep='|')
+head(a)
+a  = read.table('match.txt', sep='|', header=TRUE)
+test.data = a
+write.table(test.data, "test.txt", sep=" ")
+write.csv(test.data, "test.csv")
+a = read.csv("test.csv",header=TRUE)
+a = a[,-1]
+
+b = read.csv("test.csv",header=TRUE, colClasses = c("NULL", NA,NA,NA) )
+```
+```{r}
+a = c (1,3,2,2,3,1,2,3)
+a = sort(a)
+sum = 0
+current_word = ""
+for(i in 1:length(a)){
+  if (a[i] != current_word){   
+    print("current_word");
+    print(current_word);
+    print("sum");
+    print(sum);
+    current_word = a[i];
+    sum = 1;
+  }else{
+    sum = sum + 1;
+  }
+}
+print("current_word");
+print(current_word);
+print("sum");
+print(sum);
+
+
+a = c(1,3,2,2,3,1,2,3)
+output = list()
+for(i in 1:length(a)){
+  v = a[i];
+  if (is.null(output[v][[1]]) ==TRUE){   
+    output[a[i]] = 1;
+  }
+  else{
+    output[a[i]] = output[a[i]][[1]] + 1;
+  }
+}
+print(output);
+```
+
+```{r}
+item = list(thing="hat", size="8.25") 
+item
+
+test = list(name="Toby", score = c(87,57,72)) 
+test$score
+test$score[2]
+
+#取得內含data frame 的值
+flower= list(title="iris dataset", data= iris)
+str(flower)
+flower$data[1,"Sepal.Width"]
+```
+
+
+```{r}
+
+match = read.table("C:/Users/david/Desktop/match.txt")
+match = read.table("~/Desktop/match.txt")
+View(match)
+match = read.table("~/Desktop/match.txt", sep='|')
+View(match)
+getwd()
+setwd("C:/Users/david/Desktop")
+getwd()
+match = read.table("match.txt", sep='|')
+setwd("~/Desktop")
+tw2330 = read.csv("2330.csv")
+tw2330 = read.table("2330.csv", sep=',')
+
+tw2330 = read.table("2330.csv", sep=',', head=TRUE)
+
+class(tw2330)
+head(2330)
+head(tw2330)
+test.data = head(tw2330)
+write.table(test.data, file = "test.txt" , sep = " ")
+?write.table
+write.table(test.data, sep = " ",file = "test.txt" )
+write.csv(test.data, file = "test.csv")
+```
+
+```{r}
+#Traditional Way
+x = 5;
+if(x > 3){ 
+    print("x > 3");
+}else{
+    print("x <= 3");
+}
+tw2330 = read.table("2330.csv", sep=',', head=TRUE)
+for (i in 1:nrow(tw2330)){
+  if(tw2330[i,]$Close - tw2330[i,]$Open > 0){ 
+    print("T");
+}else{
+    print("F");
+}
+}
+
+#R
+ifelse(tw2330$Close - tw2330$Open > 0 ,"T","F")
+
+#Traditional Way
+x = 5;
+if(x > 3){ 
+    print("x > 3");
+} else if(x ==3){
+    print("x == 3");
+}else{
+    print("x < 3");
+}
+
+#Traditional Way
+for(i in 1:10){
+     print (i);
+}
+
+#R
+ 1:10
+
+#Traditional Way
+sum = 0
+for(i in 1:100){
+     sum = sum + i;
+}
+sum
+#R
+sum(1:100)
+
+
+x <- c("sunny","rainy", "cloudy", "rainy", "cloudy")
+
+for(i in 1:length(x)) {
+ print(x[i])
+}
+
+for(i in seq_along(x)) {
+ print(x[i])
+}
+
+for(letter in x) {
+ print(letter)
+}
+
+
+mat = matrix(1:9, byrow=TRUE, nrow=3)
+for(i in seq_len(nrow(mat))) {
+ for(j in seq_len(ncol(mat))) {
+ print(mat[i, j])
+ } 
+}
+
+sum = 0;
+cnt = 0;
+while(cnt <= 100){
+    sum = sum + cnt;
+    cnt = cnt + 1;
+}
+sum
+
+print(sprintf("%s %d x %d = %d","equation", 3,3,3*3))
+
+for (i in 1:9){
+  for (j in 1:9){
+  cat(sprintf("%d X %d = %d ", i, j, i * j))
+  }
+  print("")
+}
+
+matrix(1:9, nrow = 9)
+matrix(1:9, nrow = 1)
+matrix(1:9, nrow = 9) %*% matrix(1:9, nrow = 1)
+# method1
+a = proc.time()
+sum = 0;
+cnt = 0;
+while(cnt <= 10000){
+    sum = sum + cnt;
+    cnt = cnt + 1;
+}
+sum
+proc.time() -a
+# method2
+a = proc.time()
+sum(1:10000)
+proc.time() -a
+```
+
+
+```{r}
+for (i in 1:9){
+  for(j in 1:9){
+    cat(sprintf("%d X %d = %d ", i,j,i*j));
+  }
+  print("") ;
+}
+
+matrix(1:9,nrow=9) %*% matrix(1:9,nrow=1)
+```
+
+```{r}
+f = function(a, b) {
+   a + b
+}
+
+f = function(a, b) {
+   return(a + b)
+}
+
+
+f = function(a, b = 3) {
+   return(a + b)
+}
+
+f = function(a, b = 3) {
+   return(a + b)
+}
+
+f(b = 7, a= 4)
+
+
+f = function(a, b) {
+   a * 2
+}
+f(3)
+
+a = 3
+f = function(b){
+   return(a + b)
+}
+
+a = 3
+f = function(b){
+   a = 2
+   return(a + b)
+}
+a
+
+f = function(a, b = 5) {
+     print(a+ b)
+}
+f(3)
+f(3,4)
+
+match = read.table("match.txt", sep = '|')
+matrix(-1, nrow= 2, ncol = 2)
+
+colnames(mat) = c("A","B")
+rownames(mat) = c("A","B")
+mat["A","B"] = 3
+mat["A","B"]
+```
+
+Match Exercise
+```{r}
+match_func= function(filename="match.txt") {
+
+  match = read.table(filename, sep='|')
+  mat = matrix(-1, nrow=5, ncol=5)
+  rownames(mat) = c("A","B","C","D","E")
+  colnames(mat) = c("A","B","C","D","E")
+  
+  for (i in 1:nrow(match)){
+  mat[match[i,]$V1,match[i,]$V2] = match[i,]$V3
+  }
+  mat
+}
+match_func()
+```
+
+```{r}
+x = list(c(1,2,3,4), c(5,6,7,8))
+for(i in x){
+     print(sum(i)) 
+}
+
+x = list(c(1,2,3), c(5,6,7,8))
+lapply(x, sum)
+lapply(x, mean)
+lapply(x, function(e) e+1 )
+
+
+m1 = matrix(1:4, byrow=TRUE, nrow=2)
+m2 = matrix(5:8, byrow=TRUE, nrow=2)
+
+li = list(m1, m2)
+lapply(li, mean)
+
+lapply(li,function(e) e[1,])
+lapply(li,function(qoo) qoo[1,])
+lapply(li,function(qoo) qoo[,1])
+
+x = list(c(1,2,3,4), c(5,6,7,8))
+lapply(x, sum)
+class(lapply(x, sum))
+unlist(lapply(x, sum))
+
+sapply(x, sum)
+
+m1 = matrix(1:4, byrow=TRUE, nrow=2)
+m2 = matrix(5:8, byrow=TRUE, nrow=2)
+
+li = list(m1, m2)
+sapply(li, mean)
+sapply(li,function(e) e[1,])
+
+data(iris)
+tapply(iris$Sepal.Length, iris$Species, mean)
+```
+
+
+```{r}
+load("~/riii/Statistics/cdc.Rdata")
+names(cdc)
+hist(cdc$weight)
+hist(cdc$weight, breaks=50)
+stem(cdc$weight)
+
+
+table(head(cdc$weight %% 10))
+table(cdc$weight %% 10)
+plot(table(cdc$weight %% 10))
+
+#使用mean 函式
+mean(cdc$weight)
+
+#使用median 函式
+median(cdc$weight)
+
+#使用table 跟 which.max
+names(which.max(table(c(1,4,4,3))))
+
+#使用table 產生類別資料的統計資訊
+table(cdc$smoke100)
+
+#使用table 產生類別資料的相對比例
+table(cdc$smoke100) / length(cdc$smoke100) 
+
+
+barplot(table(cdc$smoke100))
+
+#使用table 產生統計資料
+gender_smokers = table(cdc$gender, cdc$smoke100)
+
+#使用mosaicplot 繪製多維統計
+mosaicplot(gender_smokers)
+
+
+a = c(150, 155, 160, 162, 168, 171, 173, 175, 178, 182, 185)
+stem(a)
+quantile(a,0.75)
+quantile(a,0.25)
+IQR(a)
+
+par(mfrow = c(1, 2))
+boxplot(cdc$weight)
+boxplot(cdc$height)
+
+boxplot(cdc$weight)
+boxplot(cdc$height ~ cdc$gender)
+bmi = (cdc$weight/cdc$height^2) * 703
+boxplot(bmi ~ cdc$genhlth)
+plot(cdc$weight, cdc$wtdesire)
+
+temp = sample.int(30, 1000, replace = TRUE)
+dirty = c(999,999,999,999,999)
+mean(c(temp, dirty ))
+dt = c(temp, dirty)
+median(dt) + 1.5 * IQR(dt)
+boxplot(dt[dt< 38.5 & dt > -6.5])
+
+#標準差
+sd(cdc$weight)
+sqrt(var(cdc$weight))
+
+#變異數
+sd(cdc$weight) ^ 2
+var(cdc$weight)
+
+
+```

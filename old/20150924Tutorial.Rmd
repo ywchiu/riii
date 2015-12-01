@@ -1,0 +1,373 @@
+---
+title: "20150924 Tutorial"
+output: html_document
+---
+
+```{r}
+#install.packages("jiebaR")
+library("jiebaR")
+
+words = "hello world"
+test1 = worker()
+test1 <= words
+words = "今天天氣真好"
+test1 = worker()
+test1 <= words
+words = "今天天氣真好, 我想要看電視"
+test1 = worker()
+test1 <= words
+
+```
+
+```{r}
+data(iris)
+#install.packages("e1071")
+library(e1071)
+fit = svm(Species ~., data = iris)
+
+library("rpart")
+fit = rpart(Species ~., data = iris)
+
+plot(fit, margin= 0.1)
+text(fit)
+
+```
+
+
+```{r}
+a = 3
+a = c(3)
+c(1,2,3,4) + 2
+
+1:4
+matrix(1:4, byrow=TRUE, nrow = 2)
+
+
+kevin=c(85,73)
+marry =c(72,64)
+jerry =c(59,66)
+mat =matrix(c(kevin, marry, jerry), nrow=3, byrow=TRUE)
+mat %*% c(0.4, 0.6 )
+
+
+```
+
+
+```{r}
+gender = c(0,0,0,1,1,1,1,0,0,0,0)
+plot(gender)
+gender = as.factor(gender)
+plot(gender)
+
+weather=c("sunny","rainy", "cloudy", "rainy", "cloudy")
+weather_category=factor(weather)
+weather
+weather_category
+
+
+temperature =c("Low", "High", "High", "Medium", "Low", "Medium")
+temperature_category=factor(temperature, order=TRUE, levels=c("Low", "Medium", "High"))
+temperature_category
+temperature_category[3]>temperature_category[1]
+temperature_category[4]>temperature_category[3]
+
+
+levels(weather_category)
+levels(temperature_category)
+
+weather=c("s","r", "c", "r", "c")
+weather_factor=factor(weather)
+levels(weather_factor)=c("cloudy","rainy","sunny")
+weather_factor
+```
+
+```{r}
+data(iris)
+head(iris)
+class(iris)
+df=data.frame(a=c(1,2,3,4,5),b=c(2,3,4,5,6))
+
+#觀看前幾筆資料
+head(iris)
+?head
+head(iris, 10)
+#觀看後幾筆資料
+tail(iris)
+tail(iris, 10)
+#使用str函式檢視架構
+str(iris)
+
+
+#取前三列資料
+iris[1:3,]
+# 取前三列第一行的資料
+iris[1:3,1]
+#也可以用欄位名稱取值
+iris[1:3,"Sepal.Length"]
+#取前兩行資料
+head(iris[,1:2])
+#取特定欄位向量值
+iris$Sepal.Length
+
+#以Merge 做資料合併
+flower.type=data.frame(Species ="setosa", Flower ="iris")
+merge(flower.type, iris[1:3,], by="Species")
+#用order做資料排序
+iris[order(iris$Sepal.Length, decreasing =TRUE),]
+
+a = c(1,3,2,4,6,5,9)
+sort(a)
+sort(a, decreasing=TRUE)
+order(a)
+order(a, decreasing=TRUE)
+
+pie(table(iris$Speices))
+
+hist(iris$Sepal.Length)
+
+boxplot(iris$Sepal.Length ~ iris$Species)
+
+plot(x=iris$Petal.Length, y=iris$Petal.Width, col=iris$Species)
+
+#install.packages("rvest")
+library(rvest)
+finance = read_html("https://www.google.com/finance/historical?cid=674465&startdate=Sep%2025%2C%202000&enddate=Sep%2024%2C%202015&num=30&ei=GWYDVpnCEdCI0ATZzY-IAQ&start=30")
+fin_table = finance %>% html_node("table.gf-table.historical_price") %>% html_table(header=TRUE)
+class(fin_table)
+head(fin_table)
+max(fin_table$Close)
+min(fin_table$Close)
+boxplot(fin_table$Close)
+
+fin_table$tf = ifelse(fin_table$Close  - fin_table$Open > 0, TRUE, FALSE)
+table(fin_table$tf)
+
+Sys.setlocale(category = "LC_ALL", locale="C")
+
+apple = read_html('http://www.appledaily.com.tw/realtimenews/section/new/', encoding="UTF-8")
+
+#myStr <- iconv(apple, from='UTF-8', to='UTF-8')
+
+rtddt = apple %>% html_nodes('.rtddt')  
+time = sapply(rtddt, function(e) (e %>% html_node('time') %>% html_text() )) %>% iconv(from='UTF-8', to='UTF-8')
+
+h1 = sapply(rtddt, function(e) (e %>% html_node('h1') %>% html_text() )) %>% iconv(from='UTF-8', to='UTF-8') 
+
+h2 = sapply(rtddt, function(e) (e %>% html_node('h2') %>% html_text() ))  %>% iconv(from='UTF-8', to='UTF-8')
+
+df = data.frame(title=gsub("\n", "", h1), category= h2, time = time)
+Sys.setlocale(category = "LC_ALL", locale="")
+head(df)
+View(df)
+df[df$category=="生活",]
+
+
+```
+
+
+```{r}
+ a = function(param){
+     param
+ }
+a(3)
+a = function(param){
+     list(param = param, val = "qoo")
+ }
+a(3)
+
+item =list(thing="hat", size="8.25")
+item
+item$thing
+item$size
+
+
+test =list(name="Toby", score =c(87,57,72))
+test$score
+test$score[2]
+
+flower=list(title="iris dataset", data=iris)
+str(flower)
+flower$data[1,"Sepal.Width"]
+
+```
+
+```{r}
+match = read.table("~/riii/match.txt")
+getwd()
+setwd("~/")
+setwd("C:\\Users\\BigData\\riii")
+mat = read.table("match.txt")
+mat = read.table("match.txt", sep="|")
+
+
+tw2330 = read.csv("2330.csv", header=TRUE)
+head(tw2330)
+max(tw2330$Close)
+min(tw2330$Close)
+boxplot(tw2330$Close)
+tw2330$Date = as.Date(tw2330$Date)
+plot(tw2330$Date, tw2330$Close)
+
+
+getSymbols('VLKAY')
+barChart(VLKAY)
+addTA(EMA(Cl(VLKAY)), on=1, col=6)
+addTA(OpCl(VLKAY), col=4, type='b', lwd=2)
+
+newEMA <- newTA(EMA, Cl, on=1, col=7)
+newEMA()
+newEMA(on=NA, col=5)
+
+write.table(tw2330, file="2330_2.txt", sep=" ")
+write.csv(tw2330, file="2330_2.csv")
+```
+
+```{r}
+x =5;
+if(x >3)
+{print("x > 3");
+}else{
+  print("x <= 3");
+}
+x =5;
+if(x >3){
+  print("x > 3");
+}else if(x ==3){
+    print("x == 3");
+}else{
+    print("x < 3");
+}
+
+for(i in 1:10){
+  print(i);
+}
+a  = proc.time()
+asum=0
+for( i in 1:100)
+  {
+  asum=asum+i;
+}
+a - proc.time() 
+asum
+
+sum(1:100)
+
+
+
+a  = proc.time()
+asum=0
+for( i in 1:10000000)
+  {
+  asum=asum+i;
+}
+a - proc.time() 
+asum
+
+b  = proc.time()
+sum(as.numeric(1:10000000))
+b - proc.time() 
+
+
+mat =matrix(1:9, byrow=TRUE, nrow=3)
+for(i in seq_len(nrow(mat)))
+  {
+  for(j in seq_len(ncol(mat)))
+  {
+    print(mat[i, j])
+    }
+}
+
+sum=0;
+cnt=0;
+while(cnt<=100){
+  sum=sum+cnt;
+  cnt=cnt+1;
+  }
+sum
+
+sprintf("%s %s", "hello", "world")
+cat("hello")
+print("hello")
+
+```
+
+```{r}
+for( i in 1:9){
+  for( j in 1:9){
+    cat(sprintf("%s X %s = %s ", i, j, i * j ))
+  }
+  cat("\n")
+}
+
+matrix(1:9, nrow = 9) %*% matrix(1:9, nrow = 1) 
+
+```
+
+```{r}
+f = function(a, b){
+    a + b
+}
+f(3,2)
+
+f = function(a, b){
+    a / b
+}
+
+f(a=3, b= 1)
+f(a=1, b= 3)
+
+f =function(a, b){
+  a *2
+}
+
+f(3)
+
+f =function(a, b){
+  a  + b
+}
+f(3)
+
+f =function(a, b= 20){
+  a  + b
+}
+f(3)
+
+f =function(a, b= 20){
+  c = a * 20
+  d = a + b
+  a  + b
+}
+f(2)
+
+```
+
+```{r}
+x =list(c(1,2,3,4), c(5,6,7,8))
+lapply(x, sum)
+lapply(x, mean)
+lapply(x, function(e) e + 3)
+sapply(x, sum)
+
+m1 =matrix(1:4, byrow=TRUE, nrow=2)
+m2 =matrix(5:8, byrow=TRUE, nrow=2)
+li =list(m1, m2)
+lapply(li, mean)
+
+lapply(li,function(e)e[1,])
+
+m1 =matrix(1:4, byrow=TRUE, nrow=2)
+m2 =matrix(5:8, byrow=TRUE, nrow=2)
+li =list(m1, m2)
+sapply(li, mean)
+sapply(li,function(e)e[1,])
+
+m =matrix(1:4, byrow=TRUE, nrow=2)
+apply(m, 1, sum)#rowSum
+apply(m, 2, sum)#colSums
+
+x =c(80,70,59,88,72,57)
+t= c(1 ,1 ,2 ,1 ,1 ,2)
+tapply(x,t, mean)
+tapply(iris$Sepal.Length, iris$Species, mean)
+
+```

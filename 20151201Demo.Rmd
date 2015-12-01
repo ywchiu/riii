@@ -125,7 +125,7 @@ a[b]
 a[!b]
 
 ```
-
+## Matrix
 
 ```
 1:10
@@ -144,7 +144,7 @@ kevin = c(85,73)
 marry = c(72,64)
 jerry = c(59,66)
 
-matrix(c(kevin,marry,jerry), nrow=3, byrow=TRUE)
+mat = matrix(c(kevin,marry,jerry), nrow=3, byrow=TRUE)
 rownames(mat) = c("kevin", "marry", "jerry")
 colnames(mat) = c("first", "second")
 mat
@@ -182,5 +182,128 @@ m1 * m2
 m1 / m2
 
 m1 %*% m2
+
+mat[,1] * 0.4 + mat[,2] * 0.6
+mat %*% c(0.4,0.6)
+```
+
+## Factor
+
+```
+a = c(0,0,0,1,1,1,1,1,0,0)
+plot(a)
+a = as.factor(a)
+a
+plot(a)
+weather= c("sunny","rainy"
+, "cloudy", "rainy",
+"cloudy")
+class(weather)
+
+weather = factor(weather)
+weather = as.factor(weather)
+class(weather)
+
+weather_category = factor(weather)
+weather_category
+
+temperature = c("Low", "High", "High", "Medium", "Low",
+"Medium")
+temperature
+temperature_category =factor(temperature) 
+temperature_category
+temperature_category[2]
+temperature_category[1]
+temperature_category[2] > temperature_category[1]
+
+temperature_category = factor(temperature, order = TRUE,
+levels = c("Low",
+"Medium", "High"))
+temperature_category[2] > temperature_category[1]
+levels(temperature_category)
+
+weather= c("s","r", "c", "r", "c")
+weather_factor = factor(weather)
+weather_factor
+levels(weather_factor) = c("cloudy","rainy","sunny")
+weather_factor
+```
+
+## DataFrame
+```
+data(iris)
+class(iris)
+df = data.frame(a=c(1,2,3,4,5),b=c(2,3,4,5,6))
+head(iris)
+?head
+head(iris, 10)
+head(iris, n = 10)
+tail(iris, 10)
+tail(iris, n = 10)
+str(iris)
+iris$Sepal.Length
+
+
+iris[1:3,]
+iris[1:3,1]
+iris[1:3,"Sepal.Length"]
+head(iris[,1:2])
+iris$"Sepal.Length"
+
+#取前五筆包含length 及 width 的資料
+Five.Sepal.iris = iris[1:5, c("Sepal.Length","Sepal.Width")]
+#可以用條件做篩選
+setosa.data = iris[iris$Species=="setosa",1:5]
+str(setosa.data)
+
+#使用which 做資料篩選
+which(iris$Species=="setosa")
+a = c(1,8,2,9,3)
+which(a < 5)
+
+df = data.frame(a=c(1,2,3,4,5),b=c(2,3,4,5,6))
+df2 = data.frame(b=c(2,5,6,8,3),c=c(1,1,1,0,0))
+merge(df,df2, by="b")
+
+a = c(1,8,2,9,3)
+sort(a)
+sort(a, decreasing = TRUE)
+order(a)
+order(a, decreasing = TRUE)
+
+order(df2$b)
+df2[order(df2$b),]
+iris[order(iris$Sepal.Length, decreasing = TRUE),]
+weather= c("sunny","rainy", "cloudy", "rainy","cloudy")
+table(weather)
+table.iris = table(iris$Species)
+pie(table.iris)
+hist(iris$Sepal.Length)
+
+boxplot(Petal.Width ~ Species, data = iris)
+plot(x=iris$Petal.Length, y=iris$Petal.Width, col=iris$Species)
+```
+
+## stock example
+```
+tw2330 = read.csv("table.csv", header=TRUE)
+str(tw2330)
+max(tw2330$Close)
+min(tw2330$Close)
+summary(tw2330$Close)
+
+hist(tw2330$Close)
+boxplot(tw2330$Close)
+
+tw2330$Date = as.Date(tw2330$Date)
+plot(tw2330$Date, tw2330$Close)
+
+stock2 = tw2330[tw2330$Date >= '2015-01-01',]
+str(stock2)
+summary(stock2$Close)
+ordered_stock = stock2[order(stock2$Close),]
+ordered_stock[1,]
+ordered_stock[nrow(ordered_stock),]
+stock2[1,] - ordered_stock[1,]
 
 ```

@@ -1,0 +1,221 @@
+---
+title: "Course5"
+author: "David Chiu"
+date: "Tuesday, May 26, 2015"
+output: html_document
+---
+
+
+
+```{r}
+x1 = c(0, 0, 1, 1, 1, 1)
+x2 = c(1, 0, 1, 1, 0, 1)
+dist(rbind(x1,x2), method =  "euclidean")
+sqrt(sum((x1 - x2)^2))
+dist(rbind(x1,x2), method ="minkowski", p=2)
+
+dist(rbind(x1,x2), method ="minkowski", p=1)
+dist(rbind(x1,x2), method =  "manhattan")
+sum(abs(x1 - x2))
+
+
+
+
+```
+
+```{r}
+customer= read.csv('~/Desktop/customer.csv', header=TRUE)
+
+customer = scale(customer[,-1])
+
+hc = hclust(dist(customer, method="euclidean"), method="ward.D2")
+plot(hc, hang = -0.01, cex = 0.7)
+data(iris)
+head(iris[,-5])
+dt = scale(iris[,-5])
+hc = hclust(dist(dt, method="euclidean"), method="ward.D2")
+plot(hc, hang = -0.01, cex = 0.7)
+
+
+hc2 = hclust(dist(customer), method="single")
+plot(hc2, hang = -0.01, cex = 0.7)
+
+
+library(cluster)
+?diana
+dv = diana(customer, metric = "euclidean")
+summary(dv)
+plot(dv)
+
+
+fit = cutree(hc, k = 4)
+table(fit)
+plot(hc)
+rect.hclust(hc, k = 4 , border="red")
+rect.hclust(hc, k = 5 , border="blue")
+rect.hclust(hc, k = 6 , border="cyan")
+
+set.seed(22)
+fit = kmeans(customer, 4)
+barplot(t(fit$centers), beside = TRUE,xlab="cluster", ylab="value")
+plot(customer, col = fit$cluster)
+clusplot(customer, fit$cluster, color=TRUE, shade=TRUE)
+
+data(iris)
+hc = hclust(dist(iris[,-5]), method="ward.D2")
+plot(hc)
+km = kmeans(iris[,-5], 3)
+plot(iris, col = km$cluster)
+clusplot(iris, km$cluster, color=TRUE, shade=TRUE)
+
+install.packages("cluster")
+library(cluster)
+set.seed(22)
+km = kmeans(customer, 4)
+kms = silhouette(km$cluster,dist(customer))
+summary(kms)
+plot(kms)
+
+
+nk = 2:10
+set.seed(22)
+install.packages("fpc")
+library(fpc)
+library(cluster)
+SW = sapply(nk, function(k) {
+  cluster.stats(dist(customer), kmeans(customer, centers=k)$cluster)$avg.silwidth
+})
+plot(nk, SW, type="l", xlab="number of clusers", ylab="average silhouette width")
+
+
+nk = 2:10
+set.seed(22)
+WSS = sapply(nk, function(k) {
+    kmeans(customer, centers=k)$tot.withinss
+})
+WSS
+plot(nk, WSS, type="l", xlab= "number of k", ylab="within sum of squares")
+
+```
+
+
+```{r}
+single_c =  hclust(dist(customer), method="single")
+hc_single = cutree(single_c, k = 4)
+
+complete_c =  hclust(dist(customer), method="complete")
+hc_complete =  cutree(complete_c, k = 4)
+
+#set.seed(22)
+km = kmeans(customer, 4)
+
+cs = cluster.stats(dist(customer), km$cluster)
+cs[c("within.cluster.ss","avg.silwidth")]
+
+sapply(list(kmeans = km$cluster, hc_single = hc_single, hc_complete = hc_complete), function(c) cluster.stats(dist(customer), c)[c("within.cluster.ss","avg.silwidth")])
+
+data(iris)
+data <- iris[,-5]
+class <- iris[,5]
+
+results <- kmeans(data,3)
+results
+results$size
+results$cluster
+
+table(class,results$cluster)
+par(mfrow = c(2, 2))
+plot(data$Petal.Length,data$Petal.Width,col=results$cluster)
+plot(data$Petal.Length,data$Petal.Width,col=class)
+plot(data$Sepal.Length, data$Sepal.Width,col=results$cluster)
+plot(data$Sepal.Length, data$Sepal.Width,col=class)
+
+
+
+```
+
+```{r}
+
+library(C50)
+data(churn)
+str(churnTrain)
+churnTrain = churnTrain[,! names(churnTrain) %in% c("state", "area_code", "account_length") ]
+set.seed(2)
+ind <- sample(2, nrow(churnTrain), replace = TRUE, prob=c(0.7, 0.3))
+trainset = churnTrain[ind == 1,]
+testset = churnTrain[ind == 2,]
+install.packages("FSelector")
+library(FSelector)
+weights = random.forest.importance(churn~., trainset, importance.type = 1)
+print(weights)
+subset = cutoff.k(weights, 5)
+
+f = as.simple.formula(subset, "Class")
+print(f)
+
+
+library(caret)
+control = trainControl(method="repeatedcv", number=10, repeats=3)
+
+model = train(churn~., data=trainset, method="rpart", preProcess="scale", trControl=control)
+
+importance = varImp(model, scale=FALSE)
+importance
+
+library(rminer)
+model=fit(churn~.,trainset,model="rpart")
+VariableImportance=Importance(model,trainset,method="sensv")
+L=list(runs=1,sen=t(VariableImportance$imp),sresponses=VariableImportance$sresponses)
+mgraph(L,graph="IMP",leg=names(trainset),col="gray",Grid=10)
+
+churn.glm <- glm(churn~.,data=trainset,family=binomial())
+summary(churn.glm)
+library(MASS)
+churn.glm.step <- stepAIC(churn.glm)
+summary(churn.glm.step)
+
+ evaluator = function(subset) {
+   k = 5  
+   set.seed(2)
+   ind = sample(5, nrow(trainset), replace = TRUE)
+   results = sapply(1:k, function(i) {
+     train = trainset[ind !=i,]
+     test  = trainset[ind ==i,]
+     tree  = rpart(as.simple.formula(subset, "churn"), trainset)
+     error.rate = sum(test$churn != predict(tree, test, type="class")) / nrow(test)
+     return(1 - error.rate)
+   })
+   return(mean(results))
+ }
+attr.subset = hill.climbing.search(names(trainset)[!names(trainset) %in% "churn"], evaluator)
+
+f = as.simple.formula(attr.subset, "churn")
+f 
+
+```
+
+
+```{r}
+data(swiss)
+swiss = swiss[,-1]
+
+swiss.pca = prcomp(swiss,
+   center = TRUE,
+   scale  = TRUE)
+plot(swiss.pca$x[,1], swiss.pca$x[,2], xlim=c(-4,4))
+text(swiss.pca$x[,1], swiss.pca$x[,2], rownames(swiss.pca$x), cex=0.7, pos=4, col="red")
+biplot(swiss.pca)
+
+dataset <- read.csv('~/Desktop/eco_index.csv',head=TRUE, sep=',', row.names=1)
+pc.cr <- princomp(dataset, cor = TRUE) 
+plot(pc.cr)
+
+screeplot(pc.cr,  type="lines")
+abline(h=1, lty=3)
+
+biplot(pc.cr)
+barplot(sort(-pc.cr$scores[,1], TRUE))
+
+
+```
+

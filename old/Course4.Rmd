@@ -1,0 +1,330 @@
+---
+title: "Course4"
+author: "David Chiu"
+date: "Monday, May 25, 2015"
+output: html_document
+---
+
+
+```{r}
+X = c(17, 21, 35, 39, 50, 65)
+Y = c(132, 150, 160, 162, 149, 170)
+plot(X,Y)
+plot(Y~X)
+plot(X,Y, main="regression example", xlab = "age", ylab = "salary", xlim=c(0, 80))
+X_avg = mean(X)
+Y_avg = mean(Y)
+
+
+(sum(X*Y) - length(X)*X_avg * Y_avg) /  (sum(X^2) - length(X) * X_avg^2)
+
+Y_avg - 0.5529606 * X_avg
+
+X = Quartet$x
+Y = Quartet$y1
+X_avg = mean(X)
+Y_avg = mean(Y)
+(sum(X*Y) - length(X)*X_avg * Y_avg) /  (sum(X^2) - length(X) * X_avg^2)
+Y_avg - 0.5 * X_avg
+
+data(Quartet)
+plot(Quartet$y1~Quartet$x)
+fit = lm(y1~x, Quartet)
+fit
+abline(h = 6, col="red")
+abline(v = 8, col="red")
+abline(fit, col="blue")
+
+
+X = c(17, 21, 35, 39, 50, 65)
+Y = c(132, 150, 160, 162, 149, 170)
+
+
+
+fit = lm(Y~X)
+plot(Y~X)
+abline(fit, col="red")
+```
+
+```{r}
+data(Quartet)
+X = Quartet$x
+Y = Quartet$y1
+X_avg = mean(X)
+Y_avg = mean(Y)
+b1 = (sum(X*Y) - length(X)*X_avg * Y_avg) /  (sum(X^2) - length(X) * X_avg^2)
+b0 = Y_avg - 0.5 * X_avg
+plot(Y~X)
+
+abline(a = b0, b=b1, col="red")
+lines(X, b0 + b1*X, col ="red")
+lines(1:20, b0 + b1*1:20, col ="red")
+
+X= c(1,2,3)
+Y = c(4,5,6)
+plot(X,Y, xlim = c(1,5), ylim=c(1,10))
+lines(c(1,2,3),c(2,3,8), col='red')
+
+
+plot(Quartet$x, Quartet$y2)
+fit = lm(Quartet$y2 ~ Quartet$x)
+fit2 = lm(Quartet$y2 ~ poly(Quartet$x,2))
+
+lines(i, j, col="red")
+
+i = Quartet$x
+j = fit$fit
+lines(sort(i),j[order(i)],col="blue")
+
+i = Quartet$x
+j = fit2$fit
+lines(sort(i),j[order(i)],col="red")
+
+plot(Quartet$x, Quartet$y3)
+fit = lm(Quartet$y3 ~ Quartet$x)
+abline(fit, col="red")
+
+fit = lm(Quartet$y3[Quartet$x != 13] ~ Quartet$x[Quartet$x != 13])
+abline(fit, col="blue")
+
+library(MASS)
+plot(Quartet$x, Quartet$y3)
+lmfit = rlm(Quartet$y3~Quartet$x)
+abline(lmfit, col="red")
+```
+
+```{r}
+house_prices <- read.csv(file="~/Desktop/house-prices.csv")
+names(house_prices)
+str(house_prices)
+attach(house_prices)
+detach(house_prices)
+plot(Price ~ SqFt)
+
+lm.1 <- lm(Price ~ SqFt, data=house_prices)
+summary(lm.1)
+
+plot(SqFt, Price, main="Scatter plot", xlab="Square feet", ylab="Price")
+abline(lm.1,col="red",lwd=3)
+
+X = c(17, 21, 35, 39, 50, 65)
+Y = c(132, 150, 160, 162, 149, 170)
+fit = lm(Y~X)
+plot(X,Y, xlim=c(0,80), ylim =c(0,200))
+```
+
+
+```{r}
+plot(Quartet$x, Quartet$y3)
+lmfit = lm(Quartet$y3~Quartet$x)
+abline(lmfit, col="red")
+predict(lmfit, data.frame(x=8))
+predict(lmfit, data.frame(x=c(8,9)))
+predicted= predict(lmfit, newdata=Quartet[c("x")])
+actual = Quartet$y3
+rmse = (mean((predicted - actual)^2))^0.5
+mu = mean(actual)
+rse = mean((predicted - actual)^2) / mean((mu - actual)^2) 
+rsquare = 1 - rse
+
+library(MASS)
+plot(Quartet$x, Quartet$y3)
+rlmfit = rlm(Quartet$y3~Quartet$x)
+abline(rlmfit, col="red")
+predicted = predict(rlmfit, newdata=Quartet[c("x")])
+actual = Quartet$y3
+rmse = (mean((predicted - actual)^2))^0.5
+mu = mean(actual)
+rse =mean((predicted - actual)^2) / mean((mu - actual)^2) 
+rsquare = 1 - rse
+
+```
+
+```{r}
+house_prices <- read.csv(file="~/Desktop/house-prices.csv")
+house_prices$brick_d<-ifelse(house_prices$Brick=="Yes",1,0)
+house_prices$east<-ifelse(house_prices$Neighborhood=="East",1,0)
+house_prices$north<-ifelse(house_prices$Neighborhood=="North",1,0)
+
+set.seed(110)
+sub <- sample(nrow(house_prices), floor(nrow(house_prices) * 0.6))
+training_data <- house_prices[sub,]
+validation_data <- house_prices[-sub,]
+lm.fit1 <- lm(Price ~ SqFt+Bathrooms+Bedrooms+Offers+
+                north+east+brick_d, data=training_data)
+summary(lm.fit1)
+ 2 * pt(-abs(2.555), 68)
+library(MASS)
+lm.fit1.step <- stepAIC(lm.fit1)
+summary(lm.fit1.step)
+
+library(car)
+vif(lm.fit1)
+
+training_data$predict.price <- predict(lm.fit1)
+training_data$error <- residuals(lm.fit1)
+
+
+validation_data$predict.price <- predict(lm.fit1,newdata=validation_data)
+validation_data$error <- validation_data$predict.price - validation_data$Price
+
+hist(training_data$error)
+hist(validation_data$error)
+
+head(training_data)
+head(training_data[, c("Price","predict.price")])
+plot(training_data$Price,training__data$predict.price)
+plot(training_data$Price,training_data$predict.price)
+cor(training_data$Price,training_data$predict.price)
+cor(training_data$Price,training_data$predict.price) * cor(training_data$Price,training_data$predict.price)
+head(validation_data)
+plot(validation_data$Price,validation_data$predict.price)
+cor(validation_data$Price,validation_data$predict.price)
+cor(validation_data$Price,validation_data$predict.price) * cor(validation_data$Price,validation_data$predict.price)
+
+
+
+a<-cor(training_data$Price,training_data$predict.price)
+b<-cor(validation_data$Price,validation_data$predict.price)
+a*a
+b*b
+```
+
+```{r}
+data(iris)
+head(iris)
+install.packages("rpart")
+library(rpart)
+
+?rpart
+fit = rpart(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, data =iris)
+
+plot(fit, margin =0.1)
+text(fit)
+
+plot(iris$Petal.Length, iris$Petal.Width)
+
+plot(iris$Petal.Length, iris$Petal.Width, col=iris$Species)
+abline(v = 2.45, col="red") 
+iris$Petal.Width, col=iris$Species)
+abline(h = 1.75, col="blue") 
+
+predict_res = predict(fit, iris, type = "class")
+table(predict_res, iris[,5])
+
+
+install.packages("e1071")
+library(e1071)
+
+?svm
+fit2 = svm(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, data =iris)
+
+predict_res2 = predict(fit2, iris, type = "class")
+table(predict_res2, iris[,5])
+```
+```{r}
+install.packages("C50")
+library(C50)
+data(churn)
+str(churnTrain)
+churnTrain = churnTrain[,! names(churnTrain) %in% c("state", "area_code", "account_length") ]
+set.seed(2)
+ind <- sample(2, nrow(churnTrain), replace = TRUE, prob=c(0.7, 0.3))
+trainset = churnTrain[ind == 1,]
+testset = churnTrain[ind == 2,]
+library(rpart)
+churn.rp <- rpart(churn ~ ., data=trainset)
+plot(churn.rp, margin= 0.1)
+text(churn.rp, all=TRUE, use.n = TRUE)
+
+install.packages("party")
+library(party)
+ctree.model <- ctree(churn ~ . , data = trainset)
+plot(ctree.model)
+
+min(churn.rp$cptable[,"xerror"])
+which.min(churn.rp$cptable[,"xerror"])
+churn.cp = churn.rp$cptable[7,"CP"]
+prune.tree = prune(churn.rp, cp= churn.cp)
+plot(prune.tree, margin= 0.1)
+text(prune.tree, all=TRUE , use.n=TRUE)
+predictions <- predict(churn.rp, testset, type="class")
+table(testset$churn, predictions)
+
+
+```
+
+```{r}
+plot(iris$Petal.Length, iris$Petal.Width, col=iris$Species)
+library(rpart)
+fit = rpart(Species ~., iris)
+prediction = predict(fit, iris[,1:4], type="class")
+table(prediction, iris[,5])
+
+install.packages("e1071")
+library(e1071)
+fit = svm(Species ~., iris)
+
+library(caret)
+control = trainControl(method="repeatedcv", number=3, repeats=2)
+model = train(churn~., data=trainset, method="rpart", preProcess="scale", trControl=control)
+model
+
+
+library(rminer)
+model=fit(churn~.,trainset,model="svm")
+VariableImportance=Importance(model,trainset,method="sensv")
+L=list(runs=1,sen=t(VariableImportance$imp),sresponses=VariableImportance$sresponses)
+mgraph(L,graph="IMP",leg=names(trainset),col="gray",Grid=10)
+
+library(MASS)
+churn.glm = glm(churn ~., dat = trainset, family="binomial") 
+churn.glm.step <- stepAIC(churn.glm)
+summary(churn.glm.step)
+
+new_train = trainset[,! names(churnTrain) %in% c("churn", "international_plan", "voice_mail_plan")]
+cor_mat = cor(new_train)
+library(caret)
+highlyCorrelated = findCorrelation(cor_mat, cutoff=0.75)
+names(new_train)[highlyCorrelated]
+
+
+library(caret)
+confusionMatrix(table(predictions, testset$churn))
+
+library(ROCR)
+predictions <- predict(churn.rp, testset, type="prob")
+pred.to.roc <- predictions[, 1] 
+pred.rocr <- prediction(pred.to.roc, testset[,17]) 
+perf.rocr <- performance(pred.rocr, measure = "auc", x.measure = "cutoff") 
+perf.tpr.rocr <- performance(pred.rocr, "tpr","fpr") 
+plot(perf.tpr.rocr, colorize=T,main=paste("AUC:",(perf.rocr@y.values)))
+
+
+data(iris)
+fit = rpart(Species ~., iris)
+prediction = predict(fit, iris[,1:4], type="class")
+iris.table = table(prediction, iris[,5])
+confusionMatrix(iris.table)
+
+library(rminer)
+model=fit(Species~.,iris,model="svm")
+VariableImportance=Importance(model,iris,method="sensv")
+L=list(runs=1,sen=t(VariableImportance$imp),sresponses=VariableImportance$sresponses)
+mgraph(L,graph="IMP",leg=names(iris),col="gray",Grid=10)
+
+iris2 = iris[iris$Species != 'versicolor',]
+iris2$Species = as.factor(as.character(iris2$Species))
+model = rpart(Species ~., iris2)
+confusionMatrix(table(predict(model, iris2, type='class'), iris2$Species))
+
+library(ROCR)
+predictions <- predict(model, iris2, type="prob")
+pred.to.roc <- predictions[, 2] 
+
+pred.rocr <- prediction(pred.to.roc, iris2[,5]) 
+perf.rocr <- performance(pred.rocr, measure = "auc", x.measure = "cutoff") 
+perf.tpr.rocr <- performance(pred.rocr, "tpr","fpr") 
+plot(perf.tpr.rocr, colorize=T,main=paste("AUC:",(perf.rocr@y.values)))
+
+```

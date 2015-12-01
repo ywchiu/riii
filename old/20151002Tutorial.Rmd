@@ -1,0 +1,165 @@
+---
+title: "20151002Tutorial"
+author: "David Chiu"
+date: "2015年10月2日"
+output: html_document
+---
+
+
+
+```{r}
+?dist
+x = c(0, 0, 1, 1, 1, 1)
+y = c(1, 0, 1, 1, 0, 1)
+#歐氏距離
+dist(rbind(x,y), method =  "euclidean")
+sqrt(sum((x - y) ^2))
+dist(rbind(x,y), method ="minkowski", p=2)
+
+
+#曼哈頓距離
+dist(rbind(x,y), method =  "manhattan")
+sum(abs(x - y))
+dist(rbind(x,y), method ="minkowski", p=1)
+
+```
+
+
+```{r}
+customer = read.csv("customer.csv")
+customer = customer[,-1]
+customer = scale(customer)
+dist(customer, method="euclidean")
+hc = hclust(dist(customer, method="euclidean"), method="ward.D2")
+plot(hc)
+plot(hc, hang = -0.01, cex = 0.7)
+
+fit = cutree(hc, k = 4)
+table(fit)
+plot(hc)
+rect.hclust(hc, k = 4 , border="red")
+
+fit = cutree(hc, k = 3)
+table(fit)
+plot(hc)
+rect.hclust(hc, k = 3 , border="red")
+
+
+
+
+hc2 = hclust(dist(customer, method="euclidean"), method="single")
+plot(hc2, hang = -0.01, cex = 0.7)
+
+
+head(iris)
+iris = scale(iris[,-5])
+hc = hclust(dist(iris, method="euclidean"), method="ward.D2")
+plot(hc, hang = -0.01, cex = 0.7)
+
+```
+
+```{r}
+
+library(cluster)
+?diana
+dv = diana(customer, metric = "euclidean")
+summary(dv)
+plot(dv)
+```
+
+
+```{r}
+set.seed(22)
+fit = kmeans(customer, 4)
+barplot(t(fit$centers), beside = TRUE,xlab="cluster", ylab="value")
+plot(customer, col = fit$cluster)
+
+
+set.seed(22)
+km = kmeans(customer, 4)
+kms = silhouette(km$cluster,dist(customer))
+summary(kms)
+plot(kms)
+
+nk = 2:10
+install.packages("fpc")
+sapply(nk, function(k) {k + 3})
+library(fpc)
+SW = sapply(nk, function(k) {
+  cluster.stats(dist(customer), kmeans(customer, centers=k)$cluster)$avg.silwidth
+})
+plot(nk, SW, type="l", xlab="number of clusers", ylab="average silhouette width")
+
+
+nk = 2:10
+set.seed(22)
+WSS = sapply(nk, function(k) {s
+    kmeans(customer, centers=k)$tot.withinss
+})
+WSS
+plot(nk, WSS, type="l", xlab= "number of k", ylab="within sum of squares")
+
+
+
+```
+
+```{r}
+single_c =  hclust(dist(customer), method="single")
+hc_single = cutree(single_c, k = 4)
+
+complete_c =  hclust(dist(customer), method="complete")
+hc_complete =  cutree(complete_c, k = 4)
+
+set.seed(22)
+km = kmeans(customer, 4)
+
+cs = cluster.stats(dist(customer), km$cluster)
+cs[c("within.cluster.ss","avg.silwidth")]
+
+sapply(list(kmeans = km$cluster, hc_single = hc_single, hc_complete = hc_complete), function(c) cluster.stats(dist(customer), c)[c("within.cluster.ss","avg.silwidth")])
+
+data(iris)
+data <- iris[,-5]
+class <- iris[,5]
+
+results <- kmeans(data,3)
+results
+results$size
+results$cluster
+
+
+
+table(class,results$cluster)
+par(mfrow = c(2, 2))
+plot(data$Petal.Length,data$Petal.Width,col=results$cluster)
+plot(data$Petal.Length,data$Petal.Width,col=class)
+plot(data$Sepal.Length, data$Sepal.Width,col=results$cluster)
+plot(data$Sepal.Length, data$Sepal.Width,col=class)
+
+load("D:/OS DATA/Desktop/news_big5.RData")
+
+```
+
+```{r}
+install.packages("jiebaR")
+library("jiebaR") 
+library(stringr) 
+mixseg = worker() 
+t = as.character(news[1,]$title)
+
+names(news) = c("title", "description", "guid") 
+news$words <- sapply(news$title, function(e) paste(segment(code= str_trim(as.character(e)) , jiebar = mixseg), collapse=" ") ) 
+
+word_vec = unlist(strsplit(news$words, ' ')) uniq_vec = unique(word_vec) 
+phrase = uniq_vec[nchar(uniq_vec)>=2]
+
+
+install.packages("lsa")
+library(lsa) 
+mat = matrix(0, ncol = length(phrase), nrow = nrow(news) ) 
+for (i in 1:nrow(news)){ mat[i,unlist(sapply(strsplit(news[i,]$words, ' ')[[1]], function(e) which(e == phrase )))] = 1 } cos_mat = cosine(t(mat))
+
+
+cluster_grp = kmeans(cos_mat, 5) 
+news[cluster_grp$cluster == 5,]$title
+ ```
