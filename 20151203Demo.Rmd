@@ -280,7 +280,7 @@ data(iris)
 tapply(iris$Sepal.Length, iris$Species,mean)
 
 ```
-
+## Find Center
 ```
 names(cdc)
 str(cdc)
@@ -339,5 +339,49 @@ barplot(table(cdc$smoke100))
 gender_smokers = table(cdc$gender,cdc$smoke100)
 mosaicplot(gender_smokers)
 
+
+```
+
+```
+a = c(150, 155, 160, 162, 168, 171, 173, 175, 178, 182, 185)
+stem(a)
+quantile(a,0.5)
+quantile(a,0.25)
+quantile(a,0.75)
+quantile(a,0.75) - quantile(a,0.25)
+IQR(a)
+boxplot(a)
+
+low_adjacent = max(median(a) - 1.5 * IQR(a), 150)
+high_adjacent = min(median(a) + 1.5 * IQR(a), 180)
+low_adjacent
+b = c(150, 155, 160, 162, 168, 171, 173, 175, 178, 182, 185, 220)
+boxplot(b)
+
+boxplot(cdc$weight)
+
+
+par(mfrow=c(2,1))
+hist(cdc$weight)
+boxplot(cdc$weight, horizontal=TRUE)
+
+# par(mfrow=c(2,2))
+boxplot(cdc$weight ~ cdc$gender)
+boxplot(cdc$height ~ cdc$gender)
+
+temp = c(20,30,22,21,35,23,24,27,28)
+temp = rnorm(10000, mean = 25, sd = 5)
+
+temp2 = c(temp, 9999,9999,9999,9999,9999,9999,-1,-1,-1,-1)
+mean(temp)
+mean(temp2)
+
+boxplot(temp2)
+boxplot(temp2[temp2 < 50 & temp2 > 0])
+
+bmi = (cdc$weight/cdc$height^2) * 703
+boxplot(bmi ~ cdc$genhlth)
+
+plot(cdc$weight, cdc$wtdesire)
 
 ```
