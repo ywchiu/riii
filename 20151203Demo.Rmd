@@ -302,3 +302,42 @@ hist(cdc$weight, breaks=50)
 hist(cdc$weight, breaks=500)
 
 ```
+
+```
+table(cdc$weight %% 10)
+
+a = c(1,2,2,3,1,2,4,5,6,5,6,7,8,9,9,8)
+hist(a)
+stem(a)
+
+salary = c(22,23,25,27,32,35,22,23,25,27,32,35,50,55,60,220,230,250,300,220,230,250,300)
+stem(salary)
+
+a = c(100,120,130,110,100,90,80,90,100,110)
+sum(a) / 10
+mean(a)
+
+b = c(a, 10000)
+mean(b)
+
+a 
+sort(a)
+median(a)
+
+sort(b)
+median(b)
+
+mean(cdc$weight)
+median(cdc$weight)
+names(which.max(table(a)))
+str(cdc)
+table(cdc$smoke100)mosaicplot(gender_smokers)
+
+
+table(cdc$smoke100) / length(cdc$smoke100)
+barplot(table(cdc$smoke100))
+gender_smokers = table(cdc$gender,cdc$smoke100)
+mosaicplot(gender_smokers)
+
+
+```
