@@ -1,0 +1,99 @@
+---
+title: '20151203'
+author: "David Chiu"
+date: "2015年12月3日"
+output: html_document
+---
+
+
+## RBasic
+```
+a = 3
+b <-2 
+a + b
+a - b
+a * b
+a/ b
+
+a = 3
+a = c(3)
+a = c(1,2,3,4)
+b = c(4,3,2,1)
+
+matrix(1:9 , nrow =3, byrow=TRUE)
+
+data.frame(a=c(1,2,3), b= c(2,3,4))
+data(iris)
+class(iris)
+
+employee = list(age=30, profession="it")
+
+a = c('sunny', 'sunny', 'rainy')
+factor(a)
+
+```
+## Flow Control
+```
+x=5;
+if(x>3){
+  print
+  ("x > 3");
+}else{
+  print
+  ("x <= 3");
+}
+
+
+x=5;
+if(x>3){
+  print ("x > 3");
+} else if (x ==3){
+  print ("x == 3");
+}else{
+  print
+  ("x <= 3");
+}
+
+for(i in 1:10){
+  print(i);
+}
+
+sum=0
+for(i in 1:100){
+  sum= sum+ i;
+}
+sum
+
+sum(1:100)
+
+
+ary = rep(NA, 100)
+for(i in 1:100){
+  ary[i]= i;
+}
+ary
+
+ary2 =c()
+for(i in 1:100){
+  ary2 = c(ary2, i);
+}
+ary2
+
+seq_len(5)
+
+mat = matrix(1:9, byrow=TRUE, nrow=3)
+for(i in seq_len(nrow(mat))) {
+  for(j in seq_len(ncol(mat))) {
+    cat(mat[i, j], " ")
+  }
+  cat('\n');
+}
+
+sum = 0;
+cnt = 0;
+while(cnt <= 100){
+  sum = sum + cnt;
+  cnt = cnt + 1;
+}
+sum
+```

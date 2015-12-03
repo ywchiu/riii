@@ -77,6 +77,8 @@ fit = lm(Quartet$y1 ~ Quartet$x)
 abline(fit, col=&quot;red&quot;)
 fit
 </code></pre>
+<div id="gdp" class="section level2">
+<h2>GDP</h2>
 <pre><code>gdp = read.csv(&quot;gdp.csv&quot;,header=TRUE)
 
 gdp = gdp[1:15,]
@@ -89,6 +91,9 @@ abline(fit, col=&quot;red&quot;)
 fit
 summary(fit)
 </code></pre>
+</div>
+<div id="rbasic" class="section level2">
+<h2>RBasic</h2>
 <pre><code>help.search(“sum”)
 demo()
 demo(&quot;graphics&quot;)
@@ -117,6 +122,67 @@ class(logic1)
 card_length = 3
 card_width = &quot;5 inches&quot;
 card_length * card_width</code></pre>
+</div>
+<div id="vector" class="section level2">
+<h2>Vector</h2>
+<pre><code>getwd()
+gdp = read.csv(&quot;C:/Users/BigData/Desktop/gdp.csv&quot;,header=TRUE)
+setwd(&quot;C:/Users/BigData/Desktop&quot;)
+
+x = c(1,2,3,7)
+y= c(2,3,5,1)
+x+y
+x*y
+x - y
+x/y
+
+x + 10
+x + c(10)
+x + c(10,10,10,10)
+
+x + c(1,2)
+x + c(1,2,1,2)
+
+x = c(1,2,3,7)
+sum(x)
+
+?sum
+help(sum)
+
+x = c(1,2,3,4, NA)
+sum(x)
+sum(x, na.rm=TRUE)
+
+height_vec = c(180,169,173)
+height_vec
+names(height_vec) = c(&quot;Brian&quot;, &quot;Toby&quot;, &quot;Sherry&quot;)
+height_vec
+
+name_vec = c(&quot;Brian&quot;, &quot;Toby&quot;, &quot;Sherry&quot;)
+names(height_vec) = name_vec
+height_vec &gt; 175
+height_vec / 100
+height_vec &gt; 175 | height_vec &lt; 170
+height_vec &lt; 175 &amp; height_vec &gt; 170
+</code></pre>
+</div>
+<div id="vector-1" class="section level2">
+<h2>Vector</h2>
+<pre><code>height_vec = c(180,169,173)
+names(height_vec) = c(&quot;Brian&quot;, &quot;Toby&quot;, &quot;Sherry&quot;)
+height_vec
+weight_vec = c(73,87,43)
+bmi_vec = weight_vec/(height_vec / 100)^2
+bmi_vec &lt; 18.5 | bmi_vec &gt;= 24
+names(bmi_vec[bmi_vec &lt; 18.5 | bmi_vec &gt;= 24])
+
+a = c(1,2,3,4)
+b = c(FALSE, FALSE, TRUE, FALSE)
+a[b]
+a[!b]
+</code></pre>
+<pre><code></code></pre>
+</div>
 
 
 </div>
