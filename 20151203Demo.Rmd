@@ -97,3 +97,110 @@ while(cnt <= 100){
 }
 sum
 ```
+
+
+```
+for (i in 1:9){
+  for (j in 1:9){  
+      cat(i * j, " " );
+  }
+  cat(" \n" );
+}
+
+
+for (i in 1:9){
+  for (j in 1:9){  
+      cat(sprintf("%d * %d = %d", i, j, i * j), " ");
+  }
+  cat(" \n" );
+}
+
+matrix(1:9, nrow =9) %*% matrix(1:9, nrow= 1)
+
+```
+
+
+```
+a = c(1,2,3,4)
+b = c()
+for(i in 1:4){
+    if(a[i] != 3){
+       b = c(b, a[i]);
+    }
+}
+b    
+
+a = c(1,2,3,4)
+b = c(TRUE, TRUE, FALSE, TRUE)
+a[b]
+
+f = function(a = 3) {
+    b = 2
+    b
+}
+
+f()
+
+b = 3
+f = function(a = 3) {
+    b = 2
+    b
+}
+f()
+b
+
+b = 3
+f = function(a = 3) {
+    b
+}
+f()
+b
+
+
+f = function(a, b = 2, c = NULL) {
+   a + b
+}
+f(a = 3)
+
+f(3)
+
+
+f = function(a, b = 2, c = NULL) {
+   return(a + b)
+}
+f(3)
+
+
+f= function(a, b){
+    a*2
+}
+f(3)
+
+f= function(a, b){
+     print(a+b)
+}
+f(3)
+
+f = function(a,b){
+    if(a > 3){
+       a = 100;
+    }
+    a + b;
+}
+
+f(5,8)
+f(5,"Hello World")
+debug(f)
+f(5,"Hello World")
+undebug(f)
+
+
+mat = matrix(-1, nrow=5, ncol = 5)
+mat
+rownames(mat) = c("A","B","C","D","E")
+colnames(mat) = c("A","B","C","D","E")
+
+mat['A','C'] = 3
+
+
+```
