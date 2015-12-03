@@ -204,3 +204,32 @@ mat['A','C'] = 3
 
 
 ```
+
+```
+mat = matrix(-1, nrow=5, ncol = 5)
+mat
+rownames(mat) = c("A","B","C","D","E")
+colnames(mat) = c("A","B","C","D","E")
+
+mat['A','C'] = 3
+match = read.table('match.txt', sep= "|")
+for (i in 1:nrow(match)){
+    mat[match[i,1], match[i,2]] = match[i,3];
+}
+mat
+
+match_func = function(filename= "match.txt"){
+  mat = matrix(-1, nrow=5, ncol = 5)
+  rownames(mat) = c("A","B","C","D","E")
+  colnames(mat) = c("A","B","C","D","E")
+  
+  match = read.table(filename, sep= "|")
+  for (i in 1:nrow(match)){
+      mat[match[i,1], match[i,2]] = match[i,3];
+  }
+  mat
+}
+
+match_func('match.txt')
+match_func()
+```
