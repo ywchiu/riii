@@ -385,3 +385,59 @@ boxplot(bmi ~ cdc$genhlth)
 plot(cdc$weight, cdc$wtdesire)
 
 ```
+
+```
+sd(cdc$weight)
+sd(cdc$weight) ^ 2
+
+var(cdc$weight)
+
+rnorm(10)
+?rnorm
+
+rnorm(10, mean =70, sd = 10)
+hist(rnorm(10, mean =70, sd = 10))
+hist(rnorm(100, mean =70, sd = 10))
+hist(rnorm(1000, mean =70, sd = 10))
+
+h1 = rnorm(1000, mean =70, sd = 10)
+dh1 = density(h1)
+plot(dh1)
+dnorm(70, mean = 70, sd = 10)
+dnorm(100, mean = 70, sd = 10)
+
+curve(dnorm, -3,3)
+dnorm(0)
+
+dice = sample.int(6, 10000, replace=TRUE)
+hist(dice)
+
+set.seed(123)
+sample.int(42, 6)
+
+set.seed(50)
+y = runif(10000,0,5)
+hist(y)
+
+hist(rpois(5000,3))
+hist(rpois(5000,300))
+
+pnorm(0)
+pnorm(1)
+pnorm(2)
+
+curve(dnorm, -3,3)
+pnorm(1) - pnorm(-1)
+x = c(-1,seq(-1,1,0.1),1)
+y = c(0,dnorm(seq(-1,1,0.1)),0)
+polygon(x,y, col = "blue")
+
+pnorm(2) - pnorm(-2)
+pnorm(1.96) - pnorm(-1.96)
+
+curve(dnorm, -3,3)
+pnorm(1) - pnorm(-1)
+x = c(-1.96,seq(-1.96,1.96,0.1),1.96)
+y = c(0,dnorm(seq(-1.96,1.96,0.1)),0)
+polygon(x,y, col = "red")
+```
