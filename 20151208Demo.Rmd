@@ -118,3 +118,66 @@ hist(sample_means100, breaks = 20, xlim = xlimits)
 
 ```
 
+
+```
+
+curve(dnorm, -3,3)
+pnorm(1) - pnorm(-1)
+x = c(-1.96,seq(-1.96,1.96,0.1),1.96)
+y = c(0,dnorm(seq(-1.96,1.96,0.1)),0)
+polygon(x,y, col = "red")
+
+
+a = rnorm(1000)
+shapiro.test(a)
+b = rpois(1000, lambda = 3)
+hist(b)
+shapiro.test(b)
+
+```
+
+```
+population = ames$Gr.Liv.Area
+mean(population)
+
+samp = sample(population, 50)
+sample_mean = mean(samp)
+hist(samp)
+
+sde = sd(samp)/sqrt(50)
+
+lower = sample_mean - 1.96 * sde
+upper = sample_mean + 1.96 * sde
+
+dens <- density(population)
+plot(dens, col="red")
+mean(population)
+abline(v = mean(population), col="blue")
+
+lower
+upper
+polygon(c(lower, dens$x[dens$x>lower & dens$x < upper], upper), c(0, dens$y[dens$x>=lower & dens$x <= upper], 0), col="red", density = c(10, 50) ,angle = c(-45, 45))
+
+
+curve(dnorm, -3,3)
+x = c(-1.96,seq(-1.96,1.96,0.1),1.96)
+y = c(0,dnorm(seq(-1.96,1.96,0.1)),0)
+polygon(x,y, col = "red")
+
+alpha = 0.05
+1 - alpha / 2
+qnorm(1 - alpha / 2)
+qnorm( 1 - (1 - alpha / 2))
+
+alpha = 0.01
+1 - alpha / 2
+qnorm(1 - alpha / 2)
+qnorm( 1 - (1 - alpha / 2))
+
+
+lower = sample_mean - 2.58 * sde
+upper = sample_mean + 2.58 * sde
+
+polygon(c(lower, dens$x[dens$x>lower & dens$x < upper], upper), c(0, dens$y[dens$x>=lower & dens$x <= upper], 0), col="green", density = c(10, 50) ,angle = c(-45, 45))
+
+```
