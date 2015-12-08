@@ -211,3 +211,57 @@ gdp$GDP = as.numeric(sub(",", "", gdp$GDP))
 gdp$Export = as.numeric(sub(",", "", gdp$Export))
 cor(gdp$Export, gdp$GDP)
 ```
+
+```
+names(cdc)
+hist(cdc$height)
+boxplot(cdc$height)
+boxplot(cdc$height~ cdc$gender)
+
+pop_mean <- 300
+pop_sd <- 10
+coke = c(278,289,291,291,291,285,295,278,304,287,291,287,288,300,309,280,294,283,292,306)
+
+sde <- pop_sd / sqrt(length(coke))
+z   <- (mean(coke) - pop_mean) / sde
+curve(dnorm(x), -3,3)
+p   <- (1 - pnorm(abs(z))) * 2
+
+
+pop_mean = mean(cdc$height)
+pop_sd = sd(cdc$height)
+
+set.seed(123)
+samp = sample(cdc[cdc$gender == 'm',]$height, 20)
+boxplot(samp)
+abline(h = pop_mean, col= "red")
+sde <- pop_sd / sqrt(length(samp))
+z   <- (mean(samp) - pop_mean) / sde
+
+# two sample means are equal
+p   <- (1 - pnorm(abs(z))) * 2
+
+# the mean height of the sample is taller than the mean height of the population
+p   <- 1- pnorm(z)
+
+z.test <- function(x, pop_mean, pop_sd, side="twoside"){
+  sde <- pop_sd / sqrt(length(x))
+  z   <- (mean(x) - pop_mean) / sde
+  
+  switch(side, 
+         twoside={
+           p   <- (1 - pnorm(abs(z))) * 2
+         },
+         less={
+           p   <- pnorm(z)
+         },
+         {
+           p   <- 1- pnorm(z)
+         }
+  )
+  return(list(z = z , p = p))
+}
+
+help(package ="stat")
+
+```
