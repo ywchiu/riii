@@ -181,3 +181,33 @@ upper = sample_mean + 2.58 * sde
 polygon(c(lower, dens$x[dens$x>lower & dens$x < upper], upper), c(0, dens$y[dens$x>=lower & dens$x <= upper], 0), col="green", density = c(10, 50) ,angle = c(-45, 45))
 
 ```
+
+
+```
+x = c(160,170,180)
+y = c(64, 68, 72)
+
+cov_xy = sum((x - mean(x)) * (y - mean(y))) / 2
+cov(x,y)
+
+cor_xy = (sum((x - mean(x)) * (y - mean(y))) / 2) / (sd(x) * sd(y))  
+cor(x,y)
+
+plot(x,y)
+
+
+data(mtcars)
+mtcars
+
+cov(mtcars)
+cor(mtcars)
+cov(mtcars[1:3])
+
+
+gdp = read.csv("gdp.csv",header=TRUE)
+
+gdp = gdp[1:15,]
+gdp$GDP = as.numeric(sub(",", "", gdp$GDP))
+gdp$Export = as.numeric(sub(",", "", gdp$Export))
+cor(gdp$Export, gdp$GDP)
+```
