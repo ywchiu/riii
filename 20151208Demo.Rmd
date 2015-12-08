@@ -35,3 +35,86 @@ unfair_coin = sample(outcomes, size = 100, replace = TRUE, prob = c(0.3,0.7))
 table(unfair_coin)
 
 ```
+
+```
+rnorm(100)
+hist(rnorm(100))
+
+set.seed(123)
+sample(1:10, 3)
+
+set.seed(123)
+sample(1:42, 6)
+sample(1:42, 6)
+
+set.seed(123)
+head(.Random.seed)
+
+set.seed(50)
+head(.Random.seed)
+
+
+
+
+```
+
+
+```
+names(ames)
+str(ames)
+
+area = ames$Gr.Liv.Area
+hist(area)
+shapiro.test(area)
+
+
+sample_means10 = rep(NA, 5)
+rep(NA, 5)
+
+a = c()
+for(i in 1:3){
+ a = c(a, i)
+}
+
+
+a = rep(NA,3)
+for(i in 1:3){
+ a[i] = i
+}
+
+
+sample_means10 = rep(NA, 5000)
+sample_means50 = rep(NA, 5000)
+sample_means100 = rep(NA, 5000)
+sample(area, 10)
+
+for (i in 1:5000){
+  sample_means10[i] = mean(sample(area, 10))
+}
+
+hist(sample_means10)
+
+for (i in 1:5000){
+  sample_means50[i] = mean(sample(area, 50))
+}
+
+hist(sample_means50)
+
+
+for (i in 1:5000){
+  sample_means100[i] = mean(sample(area, 100))
+}
+
+hist(sample_means100)
+
+par(mfrow = c(3, 1))
+
+xlimits = range(sample_means10)
+
+hist(sample_means10, breaks = 20, xlim = xlimits)
+hist(sample_means50, breaks = 20, xlim = xlimits)
+hist(sample_means100, breaks = 20, xlim = xlimits)
+
+
+```
+
