@@ -245,3 +245,19 @@ sapply(list(kmeans = km$cluster,
 
 
 
+data(iris)
+data <- iris[,-5]
+class <- iris[,5]
+
+results <- kmeans(data,3)
+results
+results$size
+results$cluster
+table(class,results$cluster)
+
+par(mfrow = c(2, 2))
+plot(data$Petal.Length,data$Petal.Width,col=results$cluster)
+plot(data$Petal.Length,data$Petal.Width,col=class)
+plot(data$Sepal.Length, data$Sepal.Width,col=results$cluster)
+plot(data$Sepal.Length, data$Sepal.Width,col=class)
+
