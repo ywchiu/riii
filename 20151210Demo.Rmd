@@ -5,6 +5,7 @@ date: "2015年12月10日"
 output: html_document
 ---
 
+## iris training
 ```
 data(iris)
 class(iris)
@@ -41,4 +42,61 @@ forecast = c('1', '2', '3', '2', '2')
 table(realcase, forecast)
 
 table(iris$Species, prediction)
+```
+
+## churn analysis
+```
+install.packages("C50")
+library(C50)
+data(churn)
+str(churnTrain)
+
+df = data.frame(a = c(1,2), b = c(3,4))
+df
+df[,"a"]
+ df[,-1]
+ df[,names(df) %in% 'a']
+ df[,! names(df) %in% 'a']
+churnTrain = churnTrain[,! names(churnTrain) %in% c("state", "area_code", "account_length") ]
+
+
+nrow(churnTrain)
+samp = sample(2, nrow(churnTrain), replace= TRUE ,prob=c(.7,.3))
+table(samp)
+
+idx = sample(2, nrow(churnTrain), replace= TRUE ,prob=c(.7,.3))
+
+a = c(1,2,3,4)
+b = c(1,2,1,2)
+a[b == 1]
+
+ind <- sample(2, nrow(churnTrain), replace = TRUE, prob=c(0.7, 0.3))
+trainset = churnTrain[ind == 1,]
+testset = churnTrain[ind == 2,]
+names(trainset)
+churn.rp <- rpart(churn ~ ., data=trainset)
+plot(churn.rp, margin= 0.1)
+text(churn.rp, all=TRUE, use.n = TRUE)
+ctree.model <- ctree(churn ~ . , data = trainset)
+plot(ctree.model)
+
+iris.model <- ctree(Species ~ . , data = iris)
+plot(iris.model)
+
+min(churn.rp$cptable[,"xerror"])
+which.min(churn.rp$cptable[,"xerror"])
+churn.rp$cptable
+churn.cp = churn.rp$cptable[8,"CP"]
+prune.tree = prune(churn.rp, cp= churn.cp)
+plot(prune.tree, margin= 0.1)
+text(prune.tree, all=TRUE , use.n=TRUE)
+
+predictions <- predict(churn.rp, testset, type="class")
+table(testset$churn, predictions)
+tb= table(testset$churn, predictions)
+
+install.packages("caret")
+library(caret)
+confusionMatrix(tb)
+
 ```
