@@ -103,10 +103,10 @@ confusionMatrix(tb)
 ```
 predictions2 <- predict(churn.rp, testset)
 predict_label = predictions2[,1]
-predict_label_y = ifelse(predict_label > 0 , 'yes', 'no')
-length(predict_label_y)
-library(caret)
-table(testset$churn, predict_label_y)
+predict_label_y = as.factor(ifelse(predict_label >= 0, 'yes', 'no'))
+
+tbl = table(testset$churn, predict_label_y)
+tbl
 135 0
 4 803
     yes no
@@ -116,3 +116,65 @@ no   803 4
  FPR = 0 / (4)
 
 ```
+
+```
+install.packages("ROCR")
+library(ROCR)
+predictions <- predict(churn.rp, testset, type="prob")
+pred.to.roc <- predictions[, 1] 
+pred.rocr <- prediction(pred.to.roc, as.factor(testset[,(dim(testset)[[2]])])) 
+
+perf.rocr <- performance(pred.rocr, measure = "auc", x.measure = "cutoff") 
+perf.tpr.rocr <- performance(pred.rocr, "tpr","fpr") 
+plot(perf.tpr.rocr, colorize=T,main=paste("AUC:",(perf.rocr@y.values)))
+
+
+
+```
+
+
+```
+a = "我喜歡郭雪芙，不喜歡宋米秦"
+b = '我不喜歡郭雪芙也不喜歡宋米秦'
+
+   我 喜歡 郭雪芙 不 宋米秦
+a   1   2    1     1    1
+b   1   2    1     2    1
+
+test1 = worker()
+test1 <= "我喜歡郭雪芙，不喜歡宋米秦"
+test1  <= '我不喜歡郭雪芙也不喜歡宋米秦'
+
+
+
+?dist
+x = c(0, 0, 1, 1, 1, 1)
+y = c(1, 0, 1, 1, 0, 1)
+歐氏距離
+dist(rbind(x,y), method =  "euclidean")
+dist(rbind(x,y), method ="minkowski", p=2)
+sqrt(sum((x - y) ^ 2))
+
+曼哈頓距離
+dist(rbind(x,y), method =  "manhattan")
+dist(rbind(x,y), method ="minkowski", p=1)
+sum(abs(x - y))
+
+```
+```
+customer= read.csv('customer.csv', header=TRUE)
+head(customer)
+str(customer)
+
+customer = scale(customer[,-1])
+hc = hclust(dist(customer, method="euclidean"), method="ward.D2")
+plot(hc, hang = -0.01, cex = 0.7)
+
+hc2 = hclust(dist(customer), method="single")
+plot(hc2, hang = -0.01, cex = 0.7)
+
+```
+
+
+
+
