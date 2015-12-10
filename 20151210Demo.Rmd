@@ -1,0 +1,44 @@
+---
+title: "20151208Demo"
+author: "David Chiu"
+date: "2015年12月10日"
+output: html_document
+---
+
+```
+data(iris)
+class(iris)
+str(iris)
+
+install.packages("rpart")
+library(rpart)
+
+fit = rpart(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, data = iris)
+
+plot(fit)
+text(fit)
+
+plot(fit, margin=0.1)
+text(fit)
+
+
+plot(iris$Petal.Length, iris$Petal.Width )
+
+plot(iris$Petal.Length, iris$Petal.Width, col="red" )
+
+plot(iris$Petal.Length, iris$Petal.Width, col=iris$Species )
+
+abline(v = 2.45, col="blue",lwd = 3)
+abline(h = 1.75, col="orange",lwd = 3)
+?abline
+
+predict(fit, iris)
+prediction = predict(fit, iris, type="class")
+
+
+realcase = c('1', '2', '1', '2', '3')
+forecast = c('1', '2', '3', '2', '2')
+table(realcase, forecast)
+
+table(iris$Species, prediction)
+```
