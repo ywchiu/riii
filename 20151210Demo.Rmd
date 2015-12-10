@@ -100,3 +100,19 @@ library(caret)
 confusionMatrix(tb)
 
 ```
+```
+predictions2 <- predict(churn.rp, testset)
+predict_label = predictions2[,1]
+predict_label_y = ifelse(predict_label > 0 , 'yes', 'no')
+length(predict_label_y)
+library(caret)
+table(testset$churn, predict_label_y)
+135 0
+4 803
+    yes no
+yes  135 0
+no   803 4
+ TPR = 135 /(135 + 803)
+ FPR = 0 / (4)
+
+```
